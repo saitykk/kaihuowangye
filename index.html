@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>厨房每日开货</title>
+    <style>
+        :root {
+            --primary: #0084ff;
+            --primary-light: #e5f2ff;
+            --success: #00b578;
+            --danger: #ff3b30;
+            --warning: #ff8f1f;
+            --text-main: #333333;
+            --text-sub: #888888;
+            --bg: #f5f5f9;
+            --white: #ffffff;
+            --border: #eeeeee;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 90px; 
+            color: var(--text-main);
+            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
+        }
+
+        /* 顶部吸顶区域 */
+        .top-wrapper { position: sticky; top: 0; z-index: 100; background: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.04); }
+        .header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px;}
+        .btn-manual { background: var(--primary-light); color: var(--primary); border: none; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;}
+        .mode-toggle { font-size: 13px; color: var(--primary); background: var(--primary-light); border: none; padding: 6px 12px; border-radius: 20px; font-weight: bold; }
+
+        /* 搜索栏 */
+        .search-container { padding: 0 15px 10px 15px; }
+        .search-input { width: 100%; padding: 8px 15px; border-radius: 20px; border: none; background: var(--bg); font-size: 14px; box-sizing: border-box; outline: none; }
+        .search-input:focus { border: 1px solid var(--primary); background: var(--white); }
+
+        /* 横向类目导航 */
+        .category-nav { padding: 0 15px 10px 15px; display: flex; overflow-x: auto; white-space: nowrap; scrollbar-width: none; scroll-behavior: smooth; }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .cat-tab { padding: 6px 15px; background: var(--bg); border-radius: 15px; margin-right: 10px; font-size: 13px; color: var(--text-sub); text-decoration: none; transition: 0.2s; }
+        .cat-tab.active { background: var(--primary-light); color: var(--primary); font-weight: bold; }
+
+        /* 商品列表区 */
+        .main-content { padding: 10px 15px; }
+        .cat-section { margin-bottom: 20px; scroll-margin-top: 130px; }
+        .cat-title { font-size: 15px; font-weight: bold; color: var(--text-main); margin-bottom: 10px; padding-left: 5px; border-left: 3px solid var(--primary); }
+        
+        .product-card { background: var(--white); border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.03); transition: 0.2s; }
+        .product-card.active { border: 1px solid var(--primary); background: var(--primary-light); }
+        
+        .p-info { flex: 1; }
+        .p-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center;}
+        .p-name .default-qty { font-size: 12px; color: var(--warning); font-weight: normal; margin-left: 6px; background: #fff5e6; padding: 2px 6px; border-radius: 4px;}
+        .p-meta { font-size: 12px; color: var(--text-sub); }
+        
+        /* 动作按钮 & 内联数量输入 */
+        .p-actions { display: flex; gap: 8px; align-items: center; }
+        .inline-qty-input { width: 45px; text-align: center; border: 1px solid var(--primary); padding: 4px; border-radius: 4px; font-size: 14px; background: white;}
+        .btn-select { width: auto; padding: 6px 12px; border-radius: 16px; background: var(--bg); color: var(--text-main); border: 1px solid #ddd; font-size: 13px; font-weight: bold; }
+        .btn-select.active { background: var(--success); color: var(--white); border-color: var(--success); }
+        .admin-btn { font-size: 12px; padding: 5px 10px; border: none; border-radius: 6px; }
+
+        /* 管理模式浮动新增按钮 */
+        .fab-add { position: fixed; bottom: 85px; right: 20px; width: 50px; height: 50px; background-color: var(--primary); color: white; border-radius: 50%; display: none; justify-content: center; align-items: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0, 132, 255, 0.4); z-index: 1001; border: none; cursor: pointer; }
+
+        /* 底部悬浮直接结算栏 */
+        .bottom-cart { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); border-top: 1px solid var(--border); padding: 10px 15px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; }
+        .cart-info { font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 8px;}
+        .btn-checkout { background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 20px; font-size: 15px; font-weight: bold; }
+
+        /* 管理面板及通用表单 */
+        .admin-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px dashed #ccc; display: none; }
+        .admin-panel input, .admin-panel select, .admin-panel button, .modal-body input, .modal-body select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 15px; box-sizing: border-box; }
+        .row { display: flex; gap: 8px; }
+        .row > * { flex: 1; margin-bottom: 0 !important; }
+        .tag { background: var(--bg); padding: 6px 10px; border-radius: 6px; font-size: 13px; margin: 0 6px 8px 0; display: inline-block; border: 1px solid #e1e1e1; }
+        .section-desc { font-size: 12px; color: var(--text-sub); margin-bottom: 10px; display: block; }
+
+        /* 全屏与半屏弹窗 */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; display: none; flex-direction: column; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .modal-box { background: white; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; box-sizing: border-box; }
+        .modal-header { padding: 15px; background: white; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .modal-body { padding: 15px; flex: 1; overflow-y: auto; }
+        .btn-close { background: none; border: none; font-size: 24px; color: var(--text-sub); }
+        
+        textarea { width: 100%; height: 250px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; box-sizing: border-box; resize: none;}
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-sub); font-size: 15px; }
+
+        /* 说明书样式 */
+        .manual-section { margin-bottom: 20px; }
+        .manual-section h3 { color: var(--primary); font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid #e1e1e1; padding-bottom: 5px; }
+        .manual-section ul { padding-left: 20px; margin: 0; color: var(--text-main); font-size: 14px; line-height: 1.6; }
+        .manual-section li { margin-bottom: 8px; }
+        .highlight { color: var(--danger); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="top-wrapper">
+        <div class="header">
+            <h1>厨房开货 <button class="btn-manual" onclick="openManual()">📖 说明书</button></h1>
+            <button class="mode-toggle" id="modeToggleBtn" onclick="toggleMode()">⚙️ 管理模式</button>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索货品名称或供应商..." oninput="handleSearch()">
+        </div>
+
+        <div class="category-nav" id="categoryNav"></div>
+    </div>
+
+    <div class="main-content" id="adminSection" style="display: none;">
+        
+        <div class="admin-panel" style="display: block; border-color: var(--primary);">
+            <h3 style="margin-top:0; font-size: 15px; color: var(--primary);">🏪 店铺信息设置</h3>
+            <span class="section-desc">设置后，结算单会在供应商后自动加上店铺抬头。</span>
+            <div class="row">
+                <input type="text" id="shopNameInput" placeholder="输入店铺名称 (如: 上野店)">
+                <button style="background:var(--primary); color:white; border:none; width:60px;" onclick="saveShopName()">保存</button>
+            </div>
+        </div>
+
+        <div class="admin-panel" style="display: block;">
+            <h3 style="margin-top:0; font-size: 15px;">基础库管理</h3>
+            <span class="section-desc">提示：点击名称可修改（修改类目会同步更新货品），点击×删除。</span>
+            
+            <div class="row" style="margin-bottom: 10px;">
+                <input type="text" id="newSupplierName" placeholder="新供应商">
+                <button style="background:var(--primary); color:white; border:none; width:60px;" onclick="addBaseData('suppliers')">添加</button>
+            </div>
+            <div id="supplierListContainer" style="margin-bottom:15px;"></div>
+            
+            <div class="row" style="margin-bottom: 10px;">
+                <input type="text" id="newCategoryName" placeholder="新类目">
+                <button style="background:var(--primary); color:white; border:none; width:60px;" onclick="addBaseData('categories')">添加</button>
+            </div>
+            <div id="categoryListContainer"></div>
+        </div>
+
+        <div class="admin-panel" style="display: block;">
+            <h3 style="margin-top:0; font-size: 15px;">💾 数据导入与导出</h3>
+            <textarea id="ioTextarea" placeholder="导出数据将显示在此处；若需导入，请在此粘贴JSON数据文本..." style="height:100px; margin-bottom:10px; background:#f9f9f9;"></textarea>
+            <div class="row">
+                <button style="background:var(--bg); color:var(--text-main); border:1px solid #ddd;" onclick="exportData()">导出备份</button>
+                <button style="background:var(--danger); color:white; border:none;" onclick="importData()">覆盖导入</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainProductList"></div>
+
+    <div class="bottom-cart" id="bottomCart" style="display: none;">
+        <div class="cart-info">已选 <span id="cartCount" style="color:var(--primary); font-size:18px;">0</span> 项</div>
+        <button class="btn-checkout" onclick="generateReport()">一键生成结算单</button>
+    </div>
+
+    <button class="fab-add" id="fabAddBtn" onclick="openAddModal()">+</button>
+
+    <div class="modal" id="manualModal">
+        <div class="modal-header">
+            <h2 style="margin:0; font-size: 18px;">📖 系统使用说明书</h2>
+            <button class="btn-close" onclick="closeManual()">×</button>
+        </div>
+        <div class="modal-body" style="background: white;">
+            
+            <div class="manual-section">
+                <h3>🛠️ 1. 日常开货操作方法</h3>
+                <ul>
+                    <li><b>找货：</b>在顶部搜索框输入拼音或文字即可快速找货；或者滑动导航栏点击类别跳转。</li>
+                    <li><b>点货：</b>找到所需货品，点击右侧的<b>“选择”</b>按钮，系统会自动填入默认数量。</li>
+                    <li><b>改量：</b>点选后，货品背景变蓝，你可以直接在输入框修改数量。</li>
+                    <li><b>结算：</b>全部点完后，点击屏幕最下方出现的<b>“一键生成结算单”</b>，系统会自动按供应商对账单进行分类排版。</li>
+                </ul>
+            </div>
+
+            <div class="manual-section">
+                <h3>⚠️ 2. 极其重要的注意事项</h3>
+                <ul>
+                    <li><span class="highlight">不准清理浏览器缓存！</span>本系统的数据完全保存在当前手机浏览器的本地缓存中。如果清理缓存或卸载重装浏览器，所有货品数据都会丢失！</li>
+                    <li><b>推荐运行环境：</b>强烈建议使用手机自带的默认浏览器。如果是通过微信打开，退出微信时可能会误清缓存。</li>
+                    <li>如果某个货品不需要数量（如按条/块结账），在点货时把数量<b>删成空</b>即可，结算单上将只显示货品名称。</li>
+                </ul>
+            </div>
+
+            <div class="manual-section">
+                <h3>⚙️ 3. 数据管理 (添加/修改货品)</h3>
+                <ul>
+                    <li>点击右上角<b>“⚙️ 管理模式”</b>进入后台。</li>
+                    <li><b>店铺设置：</b>可设置店铺名称，结算时会自动加在供应商名称后面作为抬头。</li>
+                    <li><b>新增货品：</b>点击右下角蓝色的 <b>“+”</b> 号即可添加新货品。</li>
+                    <li><b>修改货品：</b>在货品列表右侧点击 <b>“改”</b> 或 <b>“删”</b>。</li>
+                    <li><b>类目管理：</b>在“基础库管理”中点击蓝色类目名称可以修改名字，旗下货品会自动跟着转移。</li>
+                </ul>
+            </div>
+
+            <div class="manual-section">
+                <h3>💾 4. 备份与多手机同步</h3>
+                <ul>
+                    <li>在管理模式下，找到<b>“数据导入与导出”</b>区域。</li>
+                    <li><b>导出防丢失：</b>定期点击<b>“导出备份”</b>，将生成的代码发到微信“文件传输助手”里当做备份。</li>
+                    <li><b>多手机同步：</b>把导出的代码发给其他同事，让他复制并粘贴到他的“数据导入区”，点击<b>“覆盖导入”</b>即可瞬间同步数据。</li>
+                </ul>
+            </div>
+
+            <button style="background:var(--primary); color:white; border:none; width:100%; padding:12px; border-radius:8px; font-size:16px; margin-top:20px; font-weight: bold;" onclick="closeManual()">我已了解，开始使用</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addModal">
+        <div class="modal-box">
+            <h3 style="margin-top:0">✨ 新增货品</h3>
+            <input type="text" id="pName" placeholder="货品名称 (如: 羊肩肉)">
+            <div class="row" style="margin-bottom: 10px;">
+                <select id="pSupplier"></select>
+                <select id="pCategory"></select>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <select id="pUnit">
+                    <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
+                    <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
+                    <option value="把">把</option><option value="条">条</option><option value="块">块</option>
+                    <option value="袋">袋</option><option value="瓶">瓶</option><option value="">无单位</option>
+                </select>
+                <input type="number" id="pDefaultQty" placeholder="默认数量" step="0.1">
+            </div>
+            <div class="row">
+                <button style="background:#f0f0f0; border:none; padding:10px; border-radius:6px; font-weight:bold;" onclick="closeAddModal()">取消</button>
+                <button style="background:var(--primary); color:white; border:none; padding:10px; border-radius:6px; font-weight:bold;" onclick="addProduct()">保存入库</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-box">
+            <h3 style="margin-top:0">✏️ 修改货品</h3>
+            <input type="text" id="eName" placeholder="货品名称">
+            <div class="row" style="margin-bottom:10px;">
+                <select id="eSupplier"></select>
+                <select id="eCategory"></select>
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <select id="eUnit">
+                    <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
+                    <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
+                    <option value="把">把</option><option value="条">条</option><option value="块">块</option>
+                    <option value="袋">袋</option><option value="瓶">瓶</option><option value="">无单位</option>
+                </select>
+                <input type="number" id="eDefaultQty" placeholder="默认数量" step="0.1">
+            </div>
+            <div class="row">
+                <button style="background:#f0f0f0; border:none; padding:10px; border-radius:6px; font-weight:bold;" onclick="closeEditModal()">取消</button>
+                <button style="background:var(--primary); color:white; border:none; padding:10px; border-radius:6px; font-weight:bold;" onclick="saveProductEdit()">保存修改</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="resultModal">
+        <div class="modal-header">
+            <h2 style="margin:0; font-size: 18px;">🧾 结算结果</h2>
+            <button class="btn-close" onclick="closeResultModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <textarea id="outputText" readonly></textarea>
+            
+            <div style="display:flex; flex-direction: column; gap:10px; margin-top:20px;">
+                <button style="background:var(--success); color:white; border:none; padding:12px; border-radius:8px; font-size:16px; font-weight:bold;" onclick="copyAndClear()">复制文本，并清空开货单</button>
+                <button style="background:var(--bg); color:var(--text-main); border:1px solid #ccc; padding:12px; border-radius:8px; font-size:15px;" onclick="justCopy()">仅复制文本 (保留勾选状态)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PRESET_DATA = {
+          "shopName": "上野店", // 默认店铺名
+          "suppliers": [ "第一食品", "中央厨房", "京和", "蔬菜", "香菜，大米", "师傅", "未知供应商" ],
+          "categories": [ "牛羊内脏", "面点", "粉面", "酱料", "自己吃", "鲜牛羊肉", "干货酱料", "禽类", "豆制品", "蔬菜类", "蛋品水果", "骨头", "预制熟食", "调味品", "耗材及其他" ],
+          "products": [
+            { "id": "101", "name": "羊肩骨", "supplier": "第一食品", "category": "骨头", "unit": "kg", "defaultQty": "10" },
+            { "id": "102", "name": "牛骨", "supplier": "第一食品", "category": "骨头", "unit": "kg", "defaultQty": "10" },
+            { "id": "103", "name": "牛黄喉", "supplier": "第一食品", "category": "牛羊内脏", "unit": "kg", "defaultQty": "5" },
+            { "id": "104", "name": "牛腩", "supplier": "第一食品", "category": "鲜牛羊肉", "unit": "块", "defaultQty": "1" },
+            { "id": "201", "name": "清炖牛肉", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
+            { "id": "202", "name": "牛肋条", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
+            { "id": "203", "name": "羊肝", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "kg", "defaultQty": "3" },
+            { "id": "204", "name": "羊肚", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "包", "defaultQty": "1" },
+            { "id": "205", "name": "牛肚", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "包", "defaultQty": "1" },
+            { "id": "206", "name": "羊心", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "个", "defaultQty": "20" },
+            { "id": "207", "name": "酱肉锅盔", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "30" },
+            { "id": "208", "name": "粗粉", "supplier": "中央厨房", "category": "粉面", "unit": "箱", "defaultQty": "1" },
+            { "id": "209", "name": "细粉", "supplier": "中央厨房", "category": "粉面", "unit": "箱", "defaultQty": "1" },
+            { "id": "210", "name": "羊肉串竹签", "supplier": "中央厨房", "category": "耗材及其他", "unit": "包", "defaultQty": "1" },
+            { "id": "211", "name": "孜然粉", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
+            { "id": "212", "name": "红烧牛肉", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
+            { "id": "213", "name": "芝麻馍", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "15" },
+            { "id": "214", "name": "黄瓜条", "supplier": "中央厨房", "category": "鲜牛羊肉", "unit": "条", "defaultQty": "1" },
+            { "id": "215", "name": "泡椒酱", "supplier": "中央厨房", "category": "酱料", "unit": "盒", "defaultQty": "1" },
+            { "id": "216", "name": "鸡爪", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
+            { "id": "217", "name": "鹿茸菇锅盔", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "20" },
+            { "id": "218", "name": "椒麻酱", "supplier": "中央厨房", "category": "酱料", "unit": "盒", "defaultQty": "1" },
+            { "id": "219", "name": "小羊排", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
+            { "id": "220", "name": "味粉", "supplier": "中央厨房", "category": "干货酱料", "unit": "箱", "defaultQty": "1" },
+            { "id": "221", "name": "番茄酱", "supplier": "中央厨房", "category": "酱料", "unit": "盒", "defaultQty": "1" },
+            { "id": "222", "name": "火锅油", "supplier": "中央厨房", "category": "酱料", "unit": "包", "defaultQty": "2" },
+            { "id": "223", "name": "小面油辣椒", "supplier": "中央厨房", "category": "干货酱料", "unit": "袋", "defaultQty": "1" },
+            { "id": "224", "name": "新一代辣椒节", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
+            { "id": "225", "name": "火锅底料", "supplier": "中央厨房", "category": "酱料", "unit": "包", "defaultQty": "2" },
+            { "id": "226", "name": "小打包袋", "supplier": "中央厨房", "category": "耗材及其他", "unit": "个", "defaultQty": "300" },
+            { "id": "301", "name": "牛腱子", "supplier": "京和", "category": "鲜牛羊肉", "unit": "kg", "defaultQty": "10" },
+            { "id": "302", "name": "羊肩肉", "supplier": "京和", "category": "鲜牛羊肉", "unit": "kg", "defaultQty": "10" },
+            { "id": "303", "name": "羊筒骨", "supplier": "京和", "category": "骨头", "unit": "kg", "defaultQty": "10" },
+            { "id": "304", "name": "郫县豆瓣酱", "supplier": "京和", "category": "干货酱料", "unit": "瓶", "defaultQty": "3" },
+            { "id": "305", "name": "猪肉丝", "supplier": "京和", "category": "自己吃", "unit": "kg", "defaultQty": "2" },
+            { "id": "306", "name": "鸡腿", "supplier": "京和", "category": "禽类", "unit": "kg", "defaultQty": "5" },
+            { "id": "307", "name": "猪筒骨", "supplier": "京和", "category": "骨头", "unit": "kg", "defaultQty": "10" },
+            { "id": "308", "name": "猪蹄", "supplier": "京和", "category": "骨头", "unit": "kg", "defaultQty": "10" },
+            { "id": "309", "name": "千夜豆腐", "supplier": "京和", "category": "豆制品", "unit": "包", "defaultQty": "1" },
+            { "id": "310", "name": "老鸡", "supplier": "京和", "category": "禽类", "unit": "件", "defaultQty": "1" },
+            { "id": "311", "name": "牛肉粉", "supplier": "京和", "category": "干货酱料", "unit": "包", "defaultQty": "2" },
+            { "id": "312", "name": "鸭肠", "supplier": "京和", "category": "禽类", "unit": "包", "defaultQty": "2" },
+            { "id": "313", "name": "红小米椒", "supplier": "京和", "category": "干货酱料", "unit": "包", "defaultQty": "5" },
+            { "id": "314", "name": "干豆腐", "supplier": "京和", "category": "豆制品", "unit": "包", "defaultQty": "3" },
+            { "id": "315", "name": "汤圆", "supplier": "京和", "category": "自己吃", "unit": "包", "defaultQty": "5" },
+            { "id": "316", "name": "排骨", "supplier": "京和", "category": "自己吃", "unit": "kg", "defaultQty": "3" },
+            { "id": "401", "name": "小青菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "箱", "defaultQty": "1" },
+            { "id": "402", "name": "土豆", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "6" },
+            { "id": "403", "name": "老姜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "2" },
+            { "id": "404", "name": "小葱", "supplier": "蔬菜", "category": "蔬菜类", "unit": "把", "defaultQty": "10" },
+            { "id": "405", "name": "韭菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
+            { "id": "406", "name": "番茄", "supplier": "蔬菜", "category": "自己吃", "unit": "kg", "defaultQty": "1" },
+            { "id": "407", "name": "鸡蛋", "supplier": "蔬菜", "category": "蛋品水果", "unit": "件", "defaultQty": "1" },
+            { "id": "408", "name": "白萝卜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "个", "defaultQty": "12" },
+            { "id": "409", "name": "黄瓜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "1" },
+            { "id": "410", "name": "茄子", "supplier": "蔬菜", "category": "自己吃", "unit": "kg", "defaultQty": "1" },
+            { "id": "411", "name": "猕猴桃", "supplier": "蔬菜", "category": "蛋品水果", "unit": "个", "defaultQty": "4" },
+            { "id": "412", "name": "长生菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "个", "defaultQty": "1" },
+            { "id": "413", "name": "紫包菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "个", "defaultQty": "1" },
+            { "id": "414", "name": "大蒜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
+            { "id": "415", "name": "青椒", "supplier": "蔬菜", "category": "自己吃", "unit": "kg", "defaultQty": "1" },
+            { "id": "416", "name": "洋葱", "supplier": "蔬菜", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
+            { "id": "418", "name": "莲白", "supplier": "蔬菜", "category": "自己吃", "unit": "个", "defaultQty": "1" },
+            { "id": "419", "name": "胡萝卜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "个", "defaultQty": "2" },
+            { "id": "1783125123443", "name": "香菜", "supplier": "香菜，大米", "category": "蔬菜类", "unit": "kg", "defaultQty": "2" },
+            { "id": "1783125339940", "name": "大米", "supplier": "香菜，大米", "category": "自己吃", "unit": "包", "defaultQty": "1" },
+            { "id": "1783146473508", "name": "碎酸菜", "supplier": "中央厨房", "category": "酱料", "unit": "箱", "defaultQty": "1" },
+            { "id": "1783147986063", "name": "毛豆", "supplier": "未知供应商", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
+            { "id": "1783148568742", "name": "花椒粉", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
+            { "id": "1783148722080", "name": "花生", "supplier": "未知供应商", "category": "蔬菜类", "unit": "包", "defaultQty": "1" }
+          ]
+        };
+
+        // ⬇️ === 温柔合并升级逻辑开始 === ⬇️
+        const CODE_VERSION = 1.1; // 💡 核心开关：以后每次你在 PRESET_DATA 加了新菜，就把这个数字改大（比如改成 1.2、1.3...）
+
+        let localDataRaw = localStorage.getItem('kitchenProData_v6');
+        let data;
+
+        if (localDataRaw) {
+            data = JSON.parse(localDataRaw);
+            
+            // 获取手机里的旧版本号，如果没有则默认为 1.0
+            let localVersion = data.version || 1.0; 
+            
+            // 如果 GitHub 上的代码版本号 > 手机里的版本号，触发温柔合并！
+            if (localVersion < CODE_VERSION) {
+                // 1. 追加新货品（对比 ID，只把本地没有的新菜塞进去，同事自己加的菜原样保留）
+                PRESET_DATA.products.forEach(presetProduct => {
+                    const exists = data.products.find(p => p.id === presetProduct.id);
+                    if (!exists) {
+                        data.products.push(presetProduct);
+                    }
+                });
+
+                // 2. 补全可能缺失的供应商和类目
+                PRESET_DATA.suppliers.forEach(s => {
+                    if (!data.suppliers.includes(s)) data.suppliers.push(s);
+                });
+                PRESET_DATA.categories.forEach(c => {
+                    if (!data.categories.includes(c)) data.categories.push(c);
+                });
+
+                // 3. 更新手机里的版本号，并保存到本地
+                data.version = CODE_VERSION;
+                localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+                
+                // 4. 给同事弹个友好的提示
+                setTimeout(() => {
+                    alert("✨ 菜单库已自动同步最新版本，您个人添加的私有数据已完美保留！");
+                }, 500);
+            }
+        } else {
+            // 如果是新同事第一次打开这个网页，直接写入最新的完整数据
+            data = JSON.parse(JSON.stringify(PRESET_DATA)); 
+            data.version = CODE_VERSION;
+            localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+        }
+
+        let selectedList = {}; 
+        let isManageMode = false;
+        let currentEditId = null;
+        let isScrollingFromNav = false; 
+        // ⬆️ === 温柔合并升级逻辑结束 === ⬆️
+
+        function init() {
+            // 初始化店铺名称显示
+            document.getElementById('shopNameInput').value = data.shopName || '';
+            updateDropdowns();
+            renderSuppliersCategories();
+            renderProductList(); 
+            initScrollSpy();
+        }
+
+        // --- 说明书 ---
+        function openManual() { document.getElementById('manualModal').style.display = 'flex'; }
+        function closeManual() { document.getElementById('manualModal').style.display = 'none'; }
+
+        // --- 店铺名称与导入导出 ---
+        function saveShopName() {
+            const inputVal = document.getElementById('shopNameInput').value.trim();
+            data.shopName = inputVal;
+            save();
+            alert('店铺信息已保存！结算时将自动添加前缀。');
+        }
+
+        function exportData() {
+            const ta = document.getElementById('ioTextarea');
+            ta.value = JSON.stringify(data, null, 2);
+            ta.select(); document.execCommand('copy');
+            alert("数据已生成并尝试复制！");
+        }
+
+        function importData() {
+            const ta = document.getElementById('ioTextarea');
+            try {
+                const parsed = JSON.parse(ta.value.trim());
+                if (parsed.suppliers && parsed.categories && parsed.products) {
+                    if(confirm("确定覆盖当前所有货品库吗？此操作不可逆！")) {
+                        data = parsed; selectedList = {}; save(); init();
+                        ta.value = ""; alert("导入成功！");
+                    }
+                } else alert("数据格式缺少必要字段。");
+            } catch(e) { alert("解析失败，请检查格式！"); }
+        }
+
+        // --- 模式切换 ---
+        function toggleMode() {
+            isManageMode = !isManageMode;
+            const btn = document.getElementById('modeToggleBtn');
+            const adminSec = document.getElementById('adminSection');
+            const fab = document.getElementById('fabAddBtn');
+            
+            if (isManageMode) {
+                btn.innerText = "完成管理"; btn.style.background = "var(--warning)"; btn.style.color = "white";
+                adminSec.style.display = "block"; fab.style.display = "flex"; 
+            } else {
+                btn.innerText = "⚙️ 管理模式"; btn.style.background = "var(--primary-light)"; btn.style.color = "var(--primary)";
+                adminSec.style.display = "none"; fab.style.display = "none"; 
+            }
+            handleSearch();
+        }
+
+        // --- 基础库管理 ---
+        function addBaseData(type) {
+            const input = type === 'suppliers' ? document.getElementById('newSupplierName') : document.getElementById('newCategoryName');
+            const val = input.value.trim();
+            if (!val || data[type].includes(val)) return;
+            data[type].push(val); input.value = '';
+            save(); updateDropdowns(); renderSuppliersCategories();
+        }
+
+        function deleteBaseData(type, index) {
+            if (confirm('确定删除吗？')) {
+                data[type].splice(index, 1);
+                save(); updateDropdowns(); renderSuppliersCategories();
+            }
+        }
+
+        function renameCategory(index) {
+            const oldName = data.categories[index];
+            const newName = prompt("修改类目名称 (货品会自动转移)：", oldName);
+            if (newName && newName.trim() !== "" && newName !== oldName) {
+                const finalName = newName.trim();
+                data.categories[index] = finalName;
+                data.products.forEach(p => { if (p.category === oldName) p.category = finalName; });
+                save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
+            }
+        }
+
+        function renderSuppliersCategories() {
+            document.getElementById('supplierListContainer').innerHTML = data.suppliers.map((s, i) => 
+                `<span class="tag">${s} <b onclick="deleteBaseData('suppliers', ${i})" style="color:var(--danger);margin-left:5px;">×</b></span>`
+            ).join('');
+            
+            document.getElementById('categoryListContainer').innerHTML = data.categories.map((c, i) => 
+                `<span class="tag"><span onclick="renameCategory(${i})" style="cursor:pointer; color:var(--primary); font-weight:bold;">${c} ✏️</span> <b onclick="deleteBaseData('categories', ${i})" style="color:var(--danger);margin-left:5px;">×</b></span>`
+            ).join('');
+        }
+
+        function updateDropdowns() {
+            const opts = (arr, prompt) => `<option value="">${prompt}</option>` + arr.map(x => `<option value="${x}">${x}</option>`).join('');
+            document.getElementById('pSupplier').innerHTML = opts(data.suppliers, '选择供应商');
+            document.getElementById('pCategory').innerHTML = opts(data.categories, '选择类目');
+            document.getElementById('eSupplier').innerHTML = opts(data.suppliers, '选择供应商');
+            document.getElementById('eCategory').innerHTML = opts(data.categories, '选择类目');
+        }
+
+        // --- 浮动新增弹窗 ---
+        function openAddModal() { document.getElementById('addModal').style.display = 'flex'; }
+        function closeAddModal() { document.getElementById('addModal').style.display = 'none'; }
+        
+        function addProduct() {
+            const name = document.getElementById('pName').value.trim();
+            const supplier = document.getElementById('pSupplier').value;
+            const category = document.getElementById('pCategory').value;
+            const unit = document.getElementById('pUnit').value;
+            const defaultQty = document.getElementById('pDefaultQty').value.trim();
+
+            if (!name || !supplier || !category) return alert('信息填写不完整');
+            data.products.push({ id: Date.now().toString(), name, supplier, category, unit, defaultQty: defaultQty !== "" ? defaultQty : "1" });
+            save(); handleSearch();
+            document.getElementById('pName').value = ''; document.getElementById('pDefaultQty').value = '';
+            closeAddModal();
+        }
+
+        // --- 搜索与列表渲染 ---
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            renderProductList(query);
+        }
+
+        function renderProductList(query = '') {
+            const list = document.getElementById('mainProductList');
+            const grouped = {};
+            data.categories.forEach(c => grouped[c] = []);
+            
+            const filteredProducts = data.products.filter(p => {
+                if (!query) return true;
+                return p.name.toLowerCase().includes(query) || p.supplier.toLowerCase().includes(query);
+            });
+
+            filteredProducts.forEach(p => {
+                if (!grouped[p.category]) grouped[p.category] = [];
+                grouped[p.category].push(p);
+            });
+
+            let html = '';
+            let activeCats = [];
+            for (let cat in grouped) {
+                if(grouped[cat].length === 0) continue; 
+                activeCats.push(cat);
+                html += `<div class="cat-section" id="cat-${cat}"><div class="cat-title">${cat}</div>`;
+                grouped[cat].forEach(p => {
+                    const isSel = selectedList[p.id] !== undefined;
+                    const qtyInfo = p.defaultQty && p.defaultQty != 1 ? `<span class="default-qty">默认:${p.defaultQty}${p.unit}</span>` : '';
+                    
+                    const adminBtns = isManageMode ? `<button class="admin-btn" style="background:#f0f0f0;" onclick="openEditModal('${p.id}')">改</button><button class="admin-btn" style="background:var(--danger); color:white;" onclick="deleteProduct('${p.id}')">删</button>` : '';
+                    const actionUI = isSel ? `<input type="number" class="inline-qty-input" value="${selectedList[p.id]}" onchange="updateQty('${p.id}', this.value)"><span style="font-size:12px; margin-right:5px; color:var(--text-sub);">${p.unit}</span><button class="btn-select active" onclick="toggleSelect('${p.id}')">已选 ✓</button>` : `<button class="btn-select" onclick="toggleSelect('${p.id}')">选 择</button>`;
+
+                    html += `<div class="product-card ${isSel ? 'active' : ''}"><div class="p-info"><div class="p-name">${p.name} ${qtyInfo}</div><div class="p-meta">${p.supplier} | ${p.unit||'无'}</div></div><div class="p-actions">${adminBtns}${actionUI}</div></div>`;
+                });
+                html += `</div>`;
+            }
+            
+            if (html === '') { html = `<div class="empty-state">😔 没找到与 "${query}" 相关的货品</div>`; }
+            
+            list.innerHTML = html;
+            renderNav(activeCats); 
+        }
+
+        // --- 导航与滚动监听 ---
+        function renderNav(activeCats) {
+            const nav = document.getElementById('categoryNav');
+            nav.innerHTML = activeCats.map(cat => `<a href="#cat-${cat}" class="cat-tab" data-target="${cat}">${cat}</a>`).join('');
+            
+            nav.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    isScrollingFromNav = true;
+                    
+                    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetEl = document.getElementById(targetId);
+                    if(targetEl) {
+                        const y = targetEl.getBoundingClientRect().top + window.pageYOffset - 120;
+                        window.scrollTo({top: y, behavior: 'smooth'});
+                    }
+                    setTimeout(() => isScrollingFromNav = false, 800);
+                });
+            });
+        }
+
+        function initScrollSpy() {
+            window.addEventListener('scroll', () => {
+                if(isScrollingFromNav) return;
+                let currentCat = '';
+                const sections = document.querySelectorAll('.cat-section');
+                sections.forEach(sec => {
+                    if (sec.getBoundingClientRect().top <= 160) {
+                        currentCat = sec.id.replace('cat-', '');
+                    }
+                });
+                
+                if (currentCat) {
+                    const nav = document.getElementById('categoryNav');
+                    const tabs = nav.querySelectorAll('.cat-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    const activeTab = document.querySelector(`.cat-tab[data-target="${currentCat}"]`);
+                    if(activeTab && !activeTab.classList.contains('active')) {
+                        activeTab.classList.add('active');
+                        nav.scrollLeft = activeTab.offsetLeft - (nav.clientWidth / 2) + (activeTab.clientWidth / 2);
+                    }
+                }
+            });
+        }
+
+        // --- 货品修改逻辑 ---
+        function openEditModal(id) {
+            const product = data.products.find(p => p.id === id); 
+            if (!product) return;
+            currentEditId = id;
+            document.getElementById('eName').value = product.name || '';
+            document.getElementById('eSupplier').value = product.supplier || '';
+            document.getElementById('eCategory').value = product.category || '';
+            document.getElementById('eUnit').value = product.unit || '';
+            document.getElementById('eDefaultQty').value = product.defaultQty || '';
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function closeEditModal() { document.getElementById('editModal').style.display = 'none'; currentEditId = null; }
+
+        function saveProductEdit() {
+            const product = data.products.find(p => p.id === currentEditId);
+            if(product) {
+                product.name = document.getElementById('eName').value.trim();
+                product.supplier = document.getElementById('eSupplier').value;
+                product.category = document.getElementById('eCategory').value;
+                product.unit = document.getElementById('eUnit').value;
+                product.defaultQty = document.getElementById('eDefaultQty').value || "1";
+                save(); handleSearch(); updateStatusUI(); closeEditModal();
+            }
+        }
+        
+        function deleteProduct(id) {
+            if (!confirm('确定删除该货品？')) return;
+            data.products = data.products.filter(p => p.id !== id);
+            delete selectedList[id]; save(); handleSearch(); updateStatusUI();
+        }
+
+        // --- 开货选择逻辑 ---
+        function toggleSelect(id) {
+            if (selectedList[id] !== undefined) delete selectedList[id];
+            else {
+                const p = data.products.find(item => item.id === id);
+                selectedList[id] = p ? p.defaultQty : 1;
+            }
+            handleSearch(); updateStatusUI(); 
+        }
+        function updateQty(id, qty) { selectedList[id] = qty; }
+        
+        function updateStatusUI() {
+            const count = Object.keys(selectedList).length;
+            const bar = document.getElementById('bottomCart');
+            if (count > 0) { bar.style.display = 'flex'; document.getElementById('cartCount').innerText = count; }
+            else bar.style.display = 'none';
+        }
+
+        // --- 生成带店铺抬头的结算文本 ---
+        function generateReport() {
+            const grouped = {};
+            for (let id in selectedList) {
+                const p = data.products.find(item => item.id === id);
+                if (!p) continue;
+                if (!grouped[p.supplier]) grouped[p.supplier] = [];
+                const qty = selectedList[id];
+                grouped[p.supplier].push((qty == 0 || qty === "") ? p.name : `${p.name}${qty}${p.unit}`);
+            }
+
+            let result = '';
+            // 核心变动：读取店铺名称，并在结算时作为前缀
+            const shopPrefix = data.shopName ? `${data.shopName} ` : ''; 
+
+            for (let s in grouped) {
+                result += `${s}:${shopPrefix}${grouped[s].join('，')}\n\n`;
+            }
+
+            document.getElementById('outputText').value = result.trim();
+            document.getElementById('resultModal').style.display = 'flex';
+        }
+        
+        function closeResultModal() { document.getElementById('resultModal').style.display = 'none'; }
+        
+        function justCopy() {
+            document.getElementById('outputText').select(); 
+            document.execCommand('copy');
+            alert('结算单已复制！快去微信粘贴发给供应商吧。'); 
+            closeResultModal();
+        }
+
+        function copyAndClear() {
+            document.getElementById('outputText').select(); 
+            document.execCommand('copy');
+            alert('复制成功！开货单已清空，准备好迎接明天的开货吧。'); 
+            selectedList = {}; handleSearch(); updateStatusUI(); closeResultModal();
+        }
+
+        function save() { localStorage.setItem('kitchenProData_v6', JSON.stringify(data)); }
+
+        init();
+    </script>
+</body>
+</html>
