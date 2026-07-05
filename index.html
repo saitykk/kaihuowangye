@@ -36,10 +36,15 @@
         .btn-manual { background: var(--primary-light); color: var(--primary); border: none; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;}
         .mode-toggle { font-size: 13px; color: var(--primary); background: var(--primary-light); border: none; padding: 6px 12px; border-radius: 20px; font-weight: bold; }
 
-        /* 搜索栏 */
-        .search-container { padding: 0 15px 10px 15px; }
-        .search-input { width: 100%; padding: 8px 15px; border-radius: 20px; border: none; background: var(--bg); font-size: 14px; box-sizing: border-box; outline: none; }
+        /* 搜索栏与排序按钮 */
+        .search-row { display: flex; padding: 0 15px 10px 15px; gap: 10px; align-items: center; }
+        .search-container { flex: 1; position: relative; display: flex; align-items: center; }
+        .search-input { width: 100%; padding: 8px 30px 8px 15px; border-radius: 20px; border: none; background: var(--bg); font-size: 14px; box-sizing: border-box; outline: none; }
         .search-input:focus { border: 1px solid var(--primary); background: var(--white); }
+        .clear-btn { position: absolute; right: 8px; width: 20px; height: 20px; line-height: 18px; text-align: center; border-radius: 50%; background: #ccc; color: white; font-size: 14px; cursor: pointer; display: none; user-select: none; }
+        .clear-btn:active { background: #999; }
+        .sort-btn { background: var(--bg); color: var(--text-main); border: 1px solid #ddd; padding: 7px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; white-space: nowrap; transition: 0.2s; cursor: pointer;}
+        .sort-btn.active { background: var(--primary-light); color: var(--primary); border-color: var(--primary-light); }
 
         /* 横向类目导航 */
         .category-nav { padding: 0 15px 10px 15px; display: flex; overflow-x: auto; white-space: nowrap; scrollbar-width: none; scroll-behavior: smooth; }
@@ -80,8 +85,19 @@
         .admin-panel input, .admin-panel select, .admin-panel button, .modal-body input, .modal-body select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 15px; box-sizing: border-box; }
         .row { display: flex; gap: 8px; }
         .row > * { flex: 1; margin-bottom: 0 !important; }
-        .tag { background: var(--bg); padding: 6px 10px; border-radius: 6px; font-size: 13px; margin: 0 6px 8px 0; display: inline-block; border: 1px solid #e1e1e1; }
+        .tag { background: var(--bg); padding: 6px 10px; border-radius: 6px; font-size: 13px; margin: 0 6px 8px 0; display: inline-flex; align-items: center; border: 1px solid #e1e1e1; transition: all 0.2s ease;}
         .section-desc { font-size: 12px; color: var(--text-sub); margin-bottom: 10px; display: block; }
+
+        /* 拖拽效果 CSS - 优化挤压动画 */
+        .draggable-cat { cursor: grab; user-select: none; -webkit-user-select: none; position: relative; transition: margin 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.2s; }
+        .draggable-cat:active { cursor: grabbing; }
+        .draggable-cat.dragging { opacity: 0.5; transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: var(--primary); z-index: 10;}
+        /* 被拖拽进入目标时，向右侧平滑挤开产生空位 */
+        .draggable-cat.drag-over { margin-left: 45px; }
+        /* 在空位处显示一条蓝色的插入指示线 */
+        .draggable-cat.drag-over::before { content: ''; position: absolute; left: -25px; top: 50%; transform: translateY(-50%); width: 4px; height: 70%; background: var(--primary); border-radius: 2px; }
+        
+        .drag-handle { color: #aaa; margin-right: 6px; font-size: 14px; display: flex; align-items: center;}
 
         /* 全屏与半屏弹窗 */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; display: none; flex-direction: column; }
@@ -199,8 +215,12 @@
             <button class="mode-toggle" id="modeToggleBtn" onclick="toggleMode()">⚙️ 管理模式</button>
         </div>
         
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索货品名称或供应商..." oninput="handleSearch()">
+        <div class="search-row">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索货品或供应商..." oninput="handleSearch()">
+                <span class="clear-btn" id="clearSearchBtn" onclick="clearSearch()">×</span>
+            </div>
+            <button class="sort-btn" id="sortToggleBtn" onclick="toggleSortMode()">首字排序</button>
         </div>
 
         <div class="category-nav" id="categoryNav"></div>
@@ -219,7 +239,7 @@
 
         <div class="admin-panel" style="display: block;">
             <h3 style="margin-top:0; font-size: 15px;">基础库管理</h3>
-            <span class="section-desc">提示：点击名称可修改（修改类目会同步更新货品），点击×删除。</span>
+            <span class="section-desc">💡 提示：按住类目左侧的 <b>☰</b> 可以拖拽调整显示顺序。点击名称可修改，点击×删除。</span>
             
             <div class="row" style="margin-bottom: 10px;">
                 <input type="text" id="newSupplierName" placeholder="新供应商">
@@ -263,7 +283,7 @@
             <div class="manual-section">
                 <h3>🛠️ 1. 日常开货操作方法</h3>
                 <ul>
-                    <li><b>找货：</b>在顶部搜索框输入拼音或文字即可快速找货；或者滑动导航栏点击类别跳转。</li>
+                    <li><b>找货：</b>在顶部搜索框输入拼音或文字即可快速找货，搜索框右侧带有一键清空按钮；或者滑动导航栏点击类别跳转。可以使用右上角的排序按钮切换首字/尾字排序。</li>
                     <li><b>点货：</b>找到所需货品，点击右侧的<b>“选择”</b>按钮，系统会自动填入默认数量。</li>
                     <li><b>改量：</b>点选后，货品背景变蓝，你可以直接在输入框修改数量。</li>
                     <li><b>结算：</b>全部点完后，点击屏幕最下方出现的<b>“一键生成结算单”</b>，系统会自动按供应商对账单进行分类排版。</li>
@@ -283,10 +303,9 @@
                 <h3>⚙️ 3. 数据管理 (添加/修改货品)</h3>
                 <ul>
                     <li>点击右上角<b>“⚙️ 管理模式”</b>进入后台。</li>
-                    <li><b>店铺设置：</b>可设置店铺名称，结算时会自动加在供应商名称后面作为抬头。</li>
+                    <li><b>类目排序：</b>在基础库中，按住类目前面的 `☰` 图标即可拖动。目标位置会被自动挤开，松手即可完成排序。</li>
                     <li><b>新增货品：</b>点击右下角蓝色的 <b>“+”</b> 号即可添加新货品。</li>
                     <li><b>修改货品：</b>在货品列表右侧点击 <b>“改”</b> 或 <b>“删”</b>。</li>
-                    <li><b>类目管理：</b>在“基础库管理”中点击蓝色类目名称可以修改名字，旗下货品会自动跟着转移。</li>
                 </ul>
             </div>
 
@@ -312,13 +331,13 @@
                 <select id="pCategory" class="form-input"></select>
             </div>
             <div class="form-row">
+                <input type="number" id="pDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
                 <select id="pUnit" class="form-input">
                     <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
                     <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
                     <option value="把">把</option><option value="条">条</option><option value="块">块</option>
                     <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
                 </select>
-                <input type="number" id="pDefaultQty" class="form-input" placeholder="默认数量" step="0.1">
             </div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeAddModal()">取消</button>
@@ -336,13 +355,13 @@
                 <select id="eCategory" class="form-input"></select>
             </div>
             <div class="form-row">
+                <input type="number" id="eDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
                 <select id="eUnit" class="form-input">
                     <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
                     <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
                     <option value="把">把</option><option value="条">条</option><option value="块">块</option>
                     <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
                 </select>
-                <input type="number" id="eDefaultQty" class="form-input" placeholder="默认数量" step="0.1">
             </div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeEditModal()">取消</button>
@@ -367,7 +386,6 @@
     </div>
 
     <script>
-        // 核心常量与最新 JSON 数据注入
         const PRESET_DATA = {
           "shopName": "上野店",
           "suppliers": [
@@ -474,14 +492,14 @@
           ]
         };
 
-        const CODE_VERSION = 1.2; 
+        const CODE_VERSION = 1.3; 
 
         let localDataRaw = localStorage.getItem('kitchenProData_v6');
         let data;
+        let sortMode = 'first'; 
 
         if (localDataRaw) {
             data = JSON.parse(localDataRaw);
-            
             let localVersion = data.version || 1.0; 
             
             if (localVersion < CODE_VERSION) {
@@ -501,10 +519,6 @@
 
                 data.version = CODE_VERSION;
                 localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
-                
-                setTimeout(() => {
-                    alert("✨ 菜单库已自动同步最新版本，您个人添加的私有数据已完美保留！");
-                }, 500);
             }
         } else {
             data = JSON.parse(JSON.stringify(PRESET_DATA)); 
@@ -597,14 +611,69 @@
             }
         }
 
+        // 拖拽逻辑变量
+        let dragSrcEl = null;
+
+        function handleDragStart(e) {
+            dragSrcEl = this;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+            this.classList.add('dragging');
+        }
+        function handleDragOver(e) {
+            if (e.preventDefault) { e.preventDefault(); }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+        function handleDragEnter(e) { 
+            if(dragSrcEl !== this) {
+                this.classList.add('drag-over'); 
+            }
+        }
+        function handleDragLeave(e) { this.classList.remove('drag-over'); }
+        function handleDrop(e) {
+            if (e.stopPropagation) { e.stopPropagation(); }
+            this.classList.remove('drag-over');
+            if (dragSrcEl !== this) {
+                let srcIndex = parseInt(dragSrcEl.getAttribute('data-index'));
+                let tgtIndex = parseInt(this.getAttribute('data-index'));
+                
+                let cat = data.categories.splice(srcIndex, 1)[0];
+                data.categories.splice(tgtIndex, 0, cat);
+                
+                save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
+            }
+            return false;
+        }
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            let items = document.querySelectorAll('.draggable-cat');
+            items.forEach(function (item) { item.classList.remove('drag-over'); });
+        }
+
         function renderSuppliersCategories() {
             document.getElementById('supplierListContainer').innerHTML = data.suppliers.map((s, i) => 
-                `<span class="tag">${s} <b onclick="deleteBaseData('suppliers', ${i})" style="color:var(--danger);margin-left:5px;">×</b></span>`
+                `<span class="tag">${s} <b onclick="deleteBaseData('suppliers', ${i})" style="color:var(--danger);margin-left:5px;cursor:pointer;">×</b></span>`
             ).join('');
             
             document.getElementById('categoryListContainer').innerHTML = data.categories.map((c, i) => 
-                `<span class="tag"><span onclick="renameCategory(${i})" style="cursor:pointer; color:var(--primary); font-weight:bold;">${c} ✏️</span> <b onclick="deleteBaseData('categories', ${i})" style="color:var(--danger);margin-left:5px;">×</b></span>`
+                `<span class="tag draggable-cat" draggable="true" data-index="${i}">
+                    <span class="drag-handle">☰</span>
+                    <span onclick="renameCategory(${i})" style="cursor:pointer; color:var(--primary); font-weight:bold;">${c} ✏️</span> 
+                    <b onclick="deleteBaseData('categories', ${i})" style="color:var(--danger);margin-left:5px;cursor:pointer;">×</b>
+                </span>`
             ).join('');
+
+            // 绑定拖拽事件
+            let dragItems = document.querySelectorAll('.draggable-cat');
+            dragItems.forEach(function(item) {
+                item.addEventListener('dragstart', handleDragStart, false);
+                item.addEventListener('dragenter', handleDragEnter, false);
+                item.addEventListener('dragover', handleDragOver, false);
+                item.addEventListener('dragleave', handleDragLeave, false);
+                item.addEventListener('drop', handleDrop, false);
+                item.addEventListener('dragend', handleDragEnd, false);
+            });
         }
 
         function updateDropdowns() {
@@ -632,8 +701,32 @@
             closeAddModal();
         }
 
+        function toggleSortMode() {
+            sortMode = sortMode === 'first' ? 'last' : 'first';
+            const btn = document.getElementById('sortToggleBtn');
+            if (sortMode === 'first') {
+                btn.innerText = '首字排序';
+                btn.classList.remove('active');
+            } else {
+                btn.innerText = '尾字排序';
+                btn.classList.add('active');
+            }
+            handleSearch();
+        }
+
+        // 新增的清空搜索功能
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            handleSearch();
+        }
+
         function handleSearch() {
-            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const input = document.getElementById('searchInput');
+            const query = input.value.trim().toLowerCase();
+            
+            // 控制清空按钮的显示与隐藏
+            document.getElementById('clearSearchBtn').style.display = query.length > 0 ? 'block' : 'none';
+            
             renderProductList(query);
         }
 
@@ -642,9 +735,20 @@
             const grouped = {};
             data.categories.forEach(c => grouped[c] = []);
             
-            const filteredProducts = data.products.filter(p => {
+            let filteredProducts = data.products.filter(p => {
                 if (!query) return true;
                 return p.name.toLowerCase().includes(query) || p.supplier.toLowerCase().includes(query);
+            });
+
+            // 进行排序
+            filteredProducts.sort((a, b) => {
+                if (sortMode === 'first') {
+                    return a.name.localeCompare(b.name, 'zh-CN');
+                } else {
+                    let lastA = a.name.slice(-1);
+                    let lastB = b.name.slice(-1);
+                    return lastA.localeCompare(lastB, 'zh-CN');
+                }
             });
 
             filteredProducts.forEach(p => {
