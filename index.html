@@ -492,7 +492,9 @@
           ]
         };
 
-        const CODE_VERSION = 1.3; 
+        // ⬇️ === 双轨制智能升级系统 === ⬇️
+        const CODE_VERSION = 2.0; // 💡 以后你想加新菜，就修改这个数字（变成 2.1, 2.2...）
+        const FORCE_RESET_VERSION = 2.0; // 🚨 强制重置水位线（永远保留 2.0 不要动！）
 
         let localDataRaw = localStorage.getItem('kitchenProData_v6');
         let data;
@@ -502,7 +504,16 @@
             data = JSON.parse(localDataRaw);
             let localVersion = data.version || 1.0; 
             
-            if (localVersion < CODE_VERSION) {
+            if (localVersion < FORCE_RESET_VERSION) {
+                // 💥 第一轨：如果发现旧版本（小于2.0），直接无情抹除，强行洗牌！
+                data = JSON.parse(JSON.stringify(PRESET_DATA)); 
+                data.version = CODE_VERSION; 
+                localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+                setTimeout(() => {
+                    alert("🚨 系统底层已全面升级！为了保证不冲突，菜单已自动重置为纯净标准版。");
+                }, 500);
+            } else if (localVersion < CODE_VERSION) {
+                // 🍃 第二轨：如果已经是2.0以上的系统，说明洗过牌了，以后就执行温柔合并，保留同事加的私有菜！
                 PRESET_DATA.products.forEach(presetProduct => {
                     const exists = data.products.find(p => p.id === presetProduct.id);
                     if (!exists) {
@@ -519,12 +530,17 @@
 
                 data.version = CODE_VERSION;
                 localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+                setTimeout(() => {
+                    alert("✨ 菜单库已自动同步最新版本，您个人添加的私有数据已完美保留！");
+                }, 500);
             }
         } else {
+            // 新人第一次打开
             data = JSON.parse(JSON.stringify(PRESET_DATA)); 
             data.version = CODE_VERSION;
             localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
         }
+        // ⬆️ === 智能升级系统结束 === ⬆️
 
         let selectedList = {}; 
         let isManageMode = false;
