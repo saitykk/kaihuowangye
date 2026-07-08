@@ -406,12 +406,10 @@
             { "id": "1783150000204", "name": "羊肚", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "包", "defaultQty": "1" },
             { "id": "1783150000205", "name": "牛肚", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "包", "defaultQty": "1" },
             { "id": "1783150000206", "name": "羊心", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "包", "defaultQty": "1" },
-            { "id": "1783150000207", "name": "酱肉锅盔", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "30" },
             { "id": "1783150000208", "name": "粗粉", "supplier": "中央厨房", "category": "粉面", "unit": "箱", "defaultQty": "1" },
             { "id": "1783150000209", "name": "细粉", "supplier": "中央厨房", "category": "粉面", "unit": "箱", "defaultQty": "1" },
             { "id": "1783150000211", "name": "孜然粉", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
             { "id": "1783150000212", "name": "红烧牛肉", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
-            { "id": "1783150000213", "name": "芝麻馍", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "15" },
             { "id": "1783150000215", "name": "泡椒酱", "supplier": "中央厨房", "category": "酱料", "unit": "盒", "defaultQty": "1" },
             { "id": "1783150000216", "name": "鸡爪", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
             { "id": "1783150000217", "name": "鹿茸菇锅盔", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "20" },
@@ -486,8 +484,8 @@
             { "id": "1783200000026", "name": "鲜肉馅", "supplier": "中央厨房", "category": "预制熟食", "unit": "包", "defaultQty": "1" },
             { "id": "1783200000027", "name": "牛肉水饺", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "1" },
             { "id": "1783200000028", "name": "羊肉水饺", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "1" },
-            { "id": "1783200000029", "name": "馒头", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "1" },
-            { "id": "1783200000030", "name": "锅盔", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "1" },
+            { "id": "1783200000029", "name": "馒头", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "15" },
+            { "id": "1783200000030", "name": "锅盔", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "30" },
             { "id": "1783200000031", "name": "青椒酱", "supplier": "中央厨房", "category": "酱料", "unit": "盒", "defaultQty": "1" },
             { "id": "1783200000032", "name": "黔莊大号打包袋", "supplier": "中央厨房", "category": "耗材及其他", "unit": "个", "defaultQty": "1" },
             { "id": "1783200000033", "name": "黔莊小号打包袋", "supplier": "中央厨房", "category": "耗材及其他", "unit": "个", "defaultQty": "300" }
@@ -495,8 +493,8 @@
         };
 
         // ⬇️ === 双轨制智能升级系统 === ⬇️
-        const CODE_VERSION = 2.2; // 💡 以后你想加新菜，就修改这个数字（变成 2.1, 2.2...）
-        const FORCE_RESET_VERSION = 2.0; // 🚨 强制重置水位线（永远保留 2.0 不要动！）
+        const CODE_VERSION = 2.3; // 💡 以后你想加新菜，就修改这个数字（变成 2.1, 2.2...）
+        const FORCE_RESET_VERSION = 2.3; // 🚨 强制重置水位线（永远保留 2.0 不要动！）
 
         let localDataRaw = localStorage.getItem('kitchenProData_v6');
         let data;
