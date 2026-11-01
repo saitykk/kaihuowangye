@@ -63,7 +63,13 @@
         .p-info { flex: 1; }
         .p-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center;}
         .p-name .default-qty { font-size: 12px; color: var(--warning); font-weight: normal; margin-left: 6px; background: #fff5e6; padding: 2px 6px; border-radius: 4px;}
-        .p-meta { font-size: 12px; color: var(--text-sub); }
+        .p-meta { font-size: 12px; color: var(--text-sub); display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+        .btn-switch-sup { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 3px; transition: 0.2s; }
+        .btn-switch-sup:active { transform: scale(0.95); background: #ffe7ba; }
+        .alt-active-tag { font-size: 11px; color: #0084ff; background: #e5f2ff; padding: 1px 5px; border-radius: 4px; margin-left: 6px; font-weight: normal; }
+        .alt-box { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; }
+        .alt-box-title { font-size: 12px; color: var(--text-sub); margin-bottom: 8px; font-weight: 600; display: block; }
+        .alt-box .form-input { margin-bottom: 0; background-color: #ffffff; padding: 10px 12px; font-size: 14px; }
         
         /* 动作按钮 & 内联数量输入 */
         .p-actions { display: flex; gap: 8px; align-items: center; }
@@ -239,7 +245,7 @@
 
         <div class="admin-panel" style="display: block;">
             <h3 style="margin-top:0; font-size: 15px;">基础库管理</h3>
-            <span class="section-desc">💡 提示：按住类目左侧的 <b>☰</b> 可以拖拽调整显示顺序。点击名称可修改，点击×删除。</span>
+            <span class="section-desc">💡 提示：点击<b>供应商</b>或<b>类目</b>名称（带 ✏️）可直接改名并自动同步所有关联货品；按住类目左侧 <b>☰</b> 可拖拽排序，点击 × 删除。</span>
             
             <div class="row" style="margin-bottom: 10px;">
                 <input type="text" id="newSupplierName" placeholder="新供应商">
@@ -285,6 +291,7 @@
                 <ul>
                     <li><b>找货：</b>在顶部搜索框输入拼音或文字即可快速找货，搜索框右侧带有一键清空按钮；或者滑动导航栏点击类别跳转。可以使用右上角的排序按钮切换首字/尾字排序。</li>
                     <li><b>点货：</b>找到所需货品，点击右侧的<b>“选择”</b>按钮，系统会自动填入默认数量。</li>
+                    <li><b>切换主/备供应商：</b>绑定了备选货源的货品，卡片下方会显示橙色<b>“⇄ 换:供应商”</b>按钮。点击即可临时切换供应商、对应货品名、默认数量及单位；点击“复制文本，并清空开货单”后会自动恢复为默认主供应商。</li>
                     <li><b>改量：</b>点选后，货品背景变蓝，你可以直接在输入框修改数量。</li>
                     <li><b>结算：</b>全部点完后，点击屏幕最下方出现的<b>“一键生成结算单”</b>，系统会自动按供应商对账单进行分类排版。</li>
                 </ul>
@@ -330,6 +337,23 @@
                 <select id="pSupplier" class="form-input"></select>
                 <select id="pCategory" class="form-input"></select>
             </div>
+            <div class="alt-box">
+                <span class="alt-box-title">🔄 备选货源 (选填：老供应商及专属名称/规格，不填默认同主货源)</span>
+                <div class="form-row" style="margin-bottom:8px;">
+                    <select id="pAltSupplier" class="form-input"></select>
+                    <input type="text" id="pAltName" class="form-input" placeholder="备选货品名(同主名不填)">
+                </div>
+                <div class="form-row" style="margin-bottom:0;">
+                    <input type="number" id="pAltDefaultQty" class="form-input" placeholder="备选默认量(同主量不填)" step="0.1">
+                    <select id="pAltUnit" class="form-input">
+                        <option value="__SAME__">同主单位</option>
+                        <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
+                        <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
+                        <option value="把">把</option><option value="条">条</option><option value="块">块</option>
+                        <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
+                    </select>
+                </div>
+            </div>
             <div class="form-row">
                 <input type="number" id="pDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
                 <select id="pUnit" class="form-input">
@@ -353,6 +377,23 @@
             <div class="form-row">
                 <select id="eSupplier" class="form-input"></select>
                 <select id="eCategory" class="form-input"></select>
+            </div>
+            <div class="alt-box">
+                <span class="alt-box-title">🔄 备选货源 (选填：老供应商及专属名称/规格，不填默认同主货源)</span>
+                <div class="form-row" style="margin-bottom:8px;">
+                    <select id="eAltSupplier" class="form-input"></select>
+                    <input type="text" id="eAltName" class="form-input" placeholder="备选货品名(同主名不填)">
+                </div>
+                <div class="form-row" style="margin-bottom:0;">
+                    <input type="number" id="eAltDefaultQty" class="form-input" placeholder="备选默认量(同主量不填)" step="0.1">
+                    <select id="eAltUnit" class="form-input">
+                        <option value="__SAME__">同主单位</option>
+                        <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
+                        <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
+                        <option value="把">把</option><option value="条">条</option><option value="块">块</option>
+                        <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
+                    </select>
+                </div>
             </div>
             <div class="form-row">
                 <input type="number" id="eDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
@@ -389,14 +430,14 @@
         const PRESET_DATA = {
           "shopName": "上野店",
           "suppliers": [
-            "第一食品", "中央厨房", "京和", "蔬菜", "香菜，大米", "师傅", "未知供应商"
+            "第一食品", "中央厨房", "京和", "蔬菜", "香菜，大米", "师傅", "未知供应商", "云供应"
           ],
           "categories": [
             "牛羊内脏", "面点", "粉面", "酱料", "自己吃", "鲜牛羊肉", "干货酱料", 
             "禽类", "豆制品", "蔬菜类", "蛋品水果", "骨头", "预制熟食", "调味品", "耗材及其他"
           ],
           "products": [
-            { "id": "1783150000101", "name": "羊肩骨", "supplier": "第一食品", "category": "骨头", "unit": "kg", "defaultQty": "10" },
+            { "id": "1783150000101", "name": "羊肩骨", "supplier": "第一食品", "category": "骨头", "unit": "kg", "defaultQty": "10", "altSupplier": "京和", "altName": "羊背骨", "altDefaultQty": "", "altUnit": "__SAME__", "useAlt": false },
             { "id": "1783150000102", "name": "牛骨", "supplier": "第一食品", "category": "骨头", "unit": "kg", "defaultQty": "10" },
             { "id": "1783150000103", "name": "牛黄喉", "supplier": "第一食品", "category": "牛羊内脏", "unit": "kg", "defaultQty": "5" },
             { "id": "1783150000104", "name": "牛腩", "supplier": "第一食品", "category": "鲜牛羊肉", "unit": "块", "defaultQty": "1" },
@@ -416,7 +457,7 @@
             { "id": "1783150000221", "name": "番茄酱", "supplier": "中央厨房", "category": "酱料", "unit": "盒", "defaultQty": "1" },
             { "id": "1783150000224", "name": "新一代辣椒节", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
             { "id": "1783150000225", "name": "火锅底料", "supplier": "中央厨房", "category": "酱料", "unit": "包", "defaultQty": "2" },
-            { "id": "1783150000301", "name": "牛腱子", "supplier": "京和", "category": "鲜牛羊肉", "unit": "kg", "defaultQty": "10" },
+            { "id": "1783150000301", "name": "牛腱子", "supplier": "云供应", "category": "鲜牛羊肉", "unit": "箱", "defaultQty": "1", "altSupplier": "京和", "altName": "", "altDefaultQty": "10", "altUnit": "kg", "useAlt": false },
             { "id": "1783150000302", "name": "羊肩肉", "supplier": "京和", "category": "鲜牛羊肉", "unit": "kg", "defaultQty": "10" },
             { "id": "1783150000303", "name": "羊筒骨", "supplier": "京和", "category": "骨头", "unit": "kg", "defaultQty": "10" },
             { "id": "1783150000304", "name": "郫县豆瓣酱", "supplier": "京和", "category": "干货酱料", "unit": "瓶", "defaultQty": "3" },
@@ -436,14 +477,14 @@
             { "id": "1783150000318", "name": "片栗粉", "supplier": "京和", "category": "干货酱料", "unit": "包", "defaultQty": "3" },
             { "id": "1783150000319", "name": "龙口粉丝", "supplier": "京和", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
             { "id": "1783150000401", "name": "小青菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "箱", "defaultQty": "1" },
-            { "id": "1783150000402", "name": "土豆", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "6" },
+            { "id": "1783150000402", "name": "黄心土豆", "supplier": "蔬菜", "category": "蔬菜类", "unit": "箱", "defaultQty": "1" },
             { "id": "1783150000403", "name": "老姜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "2" },
-            { "id": "1783150000404", "name": "小葱", "supplier": "蔬菜", "category": "蔬菜类", "unit": "把", "defaultQty": "10" },
+            { "id": "1783150000404", "name": "小葱", "supplier": "蔬菜", "category": "蔬菜类", "unit": "把", "defaultQty": "15" },
             { "id": "1783150000405", "name": "韭菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
             { "id": "1783150000406", "name": "番茄", "supplier": "蔬菜", "category": "自己吃", "unit": "kg", "defaultQty": "1" },
             { "id": "1783150000407", "name": "鸡蛋", "supplier": "蔬菜", "category": "蛋品水果", "unit": "件", "defaultQty": "1" },
             { "id": "1783150000408", "name": "白萝卜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "个", "defaultQty": "12" },
-            { "id": "1783150000409", "name": "黄瓜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "1" },
+            { "id": "1783150000409", "name": "黄瓜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "2" },
             { "id": "1783150000410", "name": "茄子", "supplier": "蔬菜", "category": "自己吃", "unit": "kg", "defaultQty": "1" },
             { "id": "1783150000411", "name": "猕猴桃", "supplier": "蔬菜", "category": "蛋品水果", "unit": "个", "defaultQty": "4" },
             { "id": "1783150000412", "name": "长生菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "个", "defaultQty": "1" },
@@ -453,13 +494,13 @@
             { "id": "1783150000416", "name": "洋葱", "supplier": "蔬菜", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
             { "id": "1783150000418", "name": "莲白", "supplier": "蔬菜", "category": "自己吃", "unit": "个", "defaultQty": "1" },
             { "id": "1783150000419", "name": "胡萝卜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "个", "defaultQty": "2" },
-            { "id": "1783125123443", "name": "香菜", "supplier": "香菜，大米", "category": "蔬菜类", "unit": "kg", "defaultQty": "2" },
-            { "id": "1783125339940", "name": "大米", "supplier": "香菜，大米", "category": "自己吃", "unit": "包", "defaultQty": "1" },
-            { "id": "1783147986063", "name": "毛豆", "supplier": "未知供应商", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
-            { "id": "1783148722080", "name": "花生", "supplier": "未知供应商", "category": "蔬菜类", "unit": "包", "defaultQty": "1" },
+            { "id": "1783125123443", "name": "香菜", "supplier": "蔬菜", "category": "蔬菜类", "unit": "kg", "defaultQty": "2" },
+            { "id": "1783125339940", "name": "大米", "supplier": "京和", "category": "自己吃", "unit": "包", "defaultQty": "1" },
+            { "id": "1783147986063", "name": "毛豆", "supplier": "京和", "category": "蔬菜类", "unit": "包", "defaultQty": "4" },
+            { "id": "1783148722080", "name": "花生", "supplier": "京和", "category": "蔬菜类", "unit": "kg", "defaultQty": "2" },
             { "id": "1783200000001", "name": "酸辣粉", "supplier": "中央厨房", "category": "粉面", "unit": "箱", "defaultQty": "1" },
-            { "id": "1783200000002", "name": "黔莊味粉", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "5" },
-            { "id": "1783200000003", "name": "细酸菜", "supplier": "中央厨房", "category": "酱料", "unit": "包", "defaultQty": "1" },
+            { "id": "1783200000002", "name": "黔莊味粉", "supplier": "中央厨房", "category": "干货酱料", "unit": "箱", "defaultQty": "1" },
+            { "id": "1783200000003", "name": "细酸菜", "supplier": "中央厨房", "category": "酱料", "unit": "箱", "defaultQty": "1" },
             { "id": "1783200000004", "name": "牛香料", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
             { "id": "1783200000005", "name": "羊香料", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
             { "id": "1783200000006", "name": "山楂", "supplier": "中央厨房", "category": "干货酱料", "unit": "包", "defaultQty": "1" },
@@ -481,7 +522,7 @@
             { "id": "1783200000022", "name": "牛筋", "supplier": "中央厨房", "category": "牛羊内脏", "unit": "包", "defaultQty": "1" },
             { "id": "1783200000023", "name": "牛黄瓜条", "supplier": "中央厨房", "category": "鲜牛羊肉", "unit": "包", "defaultQty": "1" },
             { "id": "1783200000024", "name": "渣渣牛肉", "supplier": "中央厨房", "category": "鲜牛羊肉", "unit": "kg", "defaultQty": "1" },
-            { "id": "1783200000025", "name": "羊排", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
+            { "id": "1783200000025", "name": "小羊排", "supplier": "中央厨房", "category": "预制熟食", "unit": "盒", "defaultQty": "1" },
             { "id": "1783200000026", "name": "鲜肉馅", "supplier": "中央厨房", "category": "预制熟食", "unit": "包", "defaultQty": "1" },
             { "id": "1783200000027", "name": "牛肉水饺", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "1" },
             { "id": "1783200000028", "name": "羊肉水饺", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "1" },
@@ -489,13 +530,21 @@
             { "id": "1783200000030", "name": "锅盔", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "30" },
             { "id": "1783200000031", "name": "青椒酱", "supplier": "中央厨房", "category": "酱料", "unit": "盒", "defaultQty": "1" },
             { "id": "1783200000032", "name": "黔莊大号打包袋", "supplier": "中央厨房", "category": "耗材及其他", "unit": "个", "defaultQty": "1" },
-            { "id": "1783200000033", "name": "黔莊小号打包袋", "supplier": "中央厨房", "category": "耗材及其他", "unit": "个", "defaultQty": "300" }
+            { "id": "1783200000033", "name": "黔莊小号打包袋", "supplier": "中央厨房", "category": "耗材及其他", "unit": "个", "defaultQty": "300" },
+            { "id": "1789133721305", "name": "黄豆芽", "supplier": "蔬菜", "category": "自己吃", "unit": "包", "defaultQty": "3" },
+            { "id": "1789133745061", "name": "豆腐", "supplier": "蔬菜", "category": "自己吃", "unit": "盒", "defaultQty": "4" },
+            { "id": "1789136767819", "name": "二荆条", "supplier": "蔬菜", "category": "自己吃", "unit": "kg", "defaultQty": "1" },
+            { "id": "1789798491349", "name": "桂花糕", "supplier": "中央厨房", "category": "面点", "unit": "个", "defaultQty": "30" },
+            { "id": "1790594688446", "name": "绿豆芽", "supplier": "蔬菜", "category": "自己吃", "unit": "包", "defaultQty": "3" },
+            { "id": "1792218716293", "name": "羊排", "supplier": "京和", "category": "鲜牛羊肉", "unit": "kg", "defaultQty": "5", "altSupplier": "云供应", "altName": "小羊排", "altDefaultQty": "", "altUnit": "__SAME__", "useAlt": false },
+            { "id": "1793546708670", "name": "大豆油", "supplier": "云供应", "category": "干货酱料", "unit": "桶", "defaultQty": "2", "altSupplier": "", "altName": "", "altDefaultQty": "", "altUnit": "__SAME__", "useAlt": false },
+            { "id": "1793548329970", "name": "食用碱", "supplier": "京和", "category": "干货酱料", "unit": "包", "defaultQty": "1", "altSupplier": "", "altName": "", "altDefaultQty": "", "altUnit": "__SAME__", "useAlt": false }
           ]
         };
 
         // ⬇️ === 双轨制智能升级系统 === ⬇️
-        const CODE_VERSION = 2.4; // 💡 以后你想加新菜，就修改这个数字（变成 2.1, 2.2...）
-        const FORCE_RESET_VERSION = 2.4; // 🚨 强制重置水位线（永远保留 2.0 不要动！）
+        const CODE_VERSION = 3.1; // 💡 以后你想加新菜，就修改这个数字（变成 3.1, 3.2...）
+        const FORCE_RESET_VERSION = 3.1; // 🚨 强制重置水位线（3.1 同步最新主备数据与分类）
 
         let localDataRaw = localStorage.getItem('kitchenProData_v6');
         let data;
@@ -519,6 +568,19 @@
                     const exists = data.products.find(p => p.id === presetProduct.id);
                     if (!exists) {
                         data.products.push(presetProduct);
+                    } else {
+                        const savedAltSupplier = exists.altSupplier;
+                        const savedAltName = exists.altName;
+                        const savedAltDefaultQty = exists.altDefaultQty;
+                        const savedAltUnit = exists.altUnit;
+                        Object.assign(exists, presetProduct);
+                        if (presetProduct.altSupplier === undefined && savedAltSupplier) {
+                            exists.altSupplier = savedAltSupplier;
+                            exists.altName = savedAltName || '';
+                            exists.altDefaultQty = savedAltDefaultQty || '';
+                            exists.altUnit = savedAltUnit !== undefined ? savedAltUnit : '__SAME__';
+                        }
+                        exists.useAlt = false;
                     }
                 });
 
@@ -549,6 +611,9 @@
         let isScrollingFromNav = false; 
 
         function init() {
+            if (data && Array.isArray(data.products)) {
+                data.products.forEach(p => { p.useAlt = false; });
+            }
             document.getElementById('shopNameInput').value = data.shopName || '';
             updateDropdowns();
             renderSuppliersCategories();
@@ -567,6 +632,7 @@
         }
 
         function exportData() {
+            data.version = CODE_VERSION;
             const ta = document.getElementById('ioTextarea');
             ta.value = JSON.stringify(data, null, 2);
             ta.select(); document.execCommand('copy');
@@ -577,8 +643,27 @@
             const ta = document.getElementById('ioTextarea');
             try {
                 const parsed = JSON.parse(ta.value.trim());
-                if (parsed.suppliers && parsed.categories && parsed.products) {
+                if (Array.isArray(parsed.suppliers) && Array.isArray(parsed.categories) && Array.isArray(parsed.products)) {
                     if(confirm("确定覆盖当前所有货品库吗？此操作不可逆！")) {
+                        // 兼容旧版备份与新增的备选货源字段，防止缺少字段或版本号过低导致下次刷新被重置
+                        parsed.shopName = parsed.shopName || "";
+                        parsed.version = CODE_VERSION;
+                        parsed.products.forEach(p => {
+                            p.altSupplier = p.altSupplier || "";
+                            p.altName = p.altName || "";
+                            p.altDefaultQty = p.altDefaultQty || "";
+                            p.altUnit = p.altUnit !== undefined ? p.altUnit : "__SAME__";
+                            p.useAlt = false;
+                            if (p.supplier && !parsed.suppliers.includes(p.supplier)) {
+                                parsed.suppliers.push(p.supplier);
+                            }
+                            if (p.altSupplier && !parsed.suppliers.includes(p.altSupplier)) {
+                                parsed.suppliers.push(p.altSupplier);
+                            }
+                            if (p.category && !parsed.categories.includes(p.category)) {
+                                parsed.categories.push(p.category);
+                            }
+                        });
                         data = parsed; selectedList = {}; save(); init();
                         ta.value = ""; alert("导入成功！");
                     }
@@ -617,12 +702,51 @@
             }
         }
 
+        function renameSupplier(index) {
+            const oldName = data.suppliers[index];
+            const newName = prompt("修改供应商名称 (关联货品的主/备供应商会自动同步)：", oldName);
+            if (newName && newName.trim() !== "" && newName.trim() !== oldName) {
+                const finalName = newName.trim();
+                const existIdx = data.suppliers.indexOf(finalName);
+                if (existIdx !== -1 && existIdx !== index) {
+                    if (!confirm(`供应商“${finalName}”已存在，是否将“${oldName}”下的所有货品直接合并到“${finalName}”？`)) {
+                        return;
+                    }
+                    data.suppliers.splice(index, 1);
+                } else {
+                    data.suppliers[index] = finalName;
+                }
+                // 同时同步所有货品的主供应商与备选供应商
+                data.products.forEach(p => {
+                    if (p.supplier === oldName) p.supplier = finalName;
+                    if (p.altSupplier === oldName) p.altSupplier = finalName;
+                    // 防呆：如果合并后主供应商与备选供应商变成同一家，自动清理备选状态
+                    if (p.altSupplier && p.altSupplier === p.supplier) {
+                        p.altSupplier = '';
+                        p.altName = '';
+                        p.altDefaultQty = '';
+                        p.altUnit = '__SAME__';
+                        p.useAlt = false;
+                    }
+                });
+                save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
+            }
+        }
+
         function renameCategory(index) {
             const oldName = data.categories[index];
             const newName = prompt("修改类目名称 (货品会自动转移)：", oldName);
-            if (newName && newName.trim() !== "" && newName !== oldName) {
+            if (newName && newName.trim() !== "" && newName.trim() !== oldName) {
                 const finalName = newName.trim();
-                data.categories[index] = finalName;
+                const existIdx = data.categories.indexOf(finalName);
+                if (existIdx !== -1 && existIdx !== index) {
+                    if (!confirm(`类目“${finalName}”已存在，是否将“${oldName}”下的所有货品合并到“${finalName}”？`)) {
+                        return;
+                    }
+                    data.categories.splice(index, 1);
+                } else {
+                    data.categories[index] = finalName;
+                }
                 data.products.forEach(p => { if (p.category === oldName) p.category = finalName; });
                 save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
             }
@@ -670,7 +794,10 @@
 
         function renderSuppliersCategories() {
             document.getElementById('supplierListContainer').innerHTML = data.suppliers.map((s, i) => 
-                `<span class="tag">${s} <b onclick="deleteBaseData('suppliers', ${i})" style="color:var(--danger);margin-left:5px;cursor:pointer;">×</b></span>`
+                `<span class="tag">
+                    <span onclick="renameSupplier(${i})" style="cursor:pointer; color:var(--primary); font-weight:bold;">${s} ✏️</span>
+                    <b onclick="deleteBaseData('suppliers', ${i})" style="color:var(--danger);margin-left:5px;cursor:pointer;">×</b>
+                </span>`
             ).join('');
             
             document.getElementById('categoryListContainer').innerHTML = data.categories.map((c, i) => 
@@ -693,11 +820,50 @@
             });
         }
 
+        // 获取货品当前生效的名称、供应商、默认数量与单位（支持备选货源独立规格及结算自动复位）
+        function getActiveName(p) {
+            return (p.useAlt && p.altSupplier) ? (p.altName && p.altName.trim() ? p.altName.trim() : p.name) : p.name;
+        }
+        function getActiveSupplier(p) {
+            return (p.useAlt && p.altSupplier) ? p.altSupplier : p.supplier;
+        }
+        function getActiveDefaultQty(p) {
+            if (p.useAlt && p.altSupplier && p.altDefaultQty !== undefined && String(p.altDefaultQty).trim() !== '') {
+                return String(p.altDefaultQty).trim();
+            }
+            return p.defaultQty;
+        }
+        function getActiveUnit(p) {
+            if (p.useAlt && p.altSupplier && p.altUnit !== undefined && p.altUnit !== '__SAME__') {
+                return p.altUnit;
+            }
+            return p.unit;
+        }
+        function getStandbyName(p) {
+            return (p.useAlt && p.altSupplier) ? p.name : (p.altName && p.altName.trim() ? p.altName.trim() : p.name);
+        }
+        function getStandbySupplier(p) {
+            return (p.useAlt && p.altSupplier) ? p.supplier : p.altSupplier;
+        }
+        function switchSupplier(id) {
+            const p = data.products.find(item => item.id === id);
+            if (!p || !p.altSupplier) return;
+            const prevDefaultQty = getActiveDefaultQty(p);
+            p.useAlt = !p.useAlt;
+            // 若该货品已勾选且数量仍为切换前的默认数量，自动同步为切换后货源的默认数量
+            if (selectedList[id] !== undefined && String(selectedList[id]) === String(prevDefaultQty)) {
+                selectedList[id] = getActiveDefaultQty(p);
+            }
+            handleSearch();
+        }
+
         function updateDropdowns() {
             const opts = (arr, prompt) => `<option value="">${prompt}</option>` + arr.map(x => `<option value="${x}">${x}</option>`).join('');
-            document.getElementById('pSupplier').innerHTML = opts(data.suppliers, '选择供应商');
+            document.getElementById('pSupplier').innerHTML = opts(data.suppliers, '选择主供应商');
+            document.getElementById('pAltSupplier').innerHTML = opts(data.suppliers, '无备选供应商');
             document.getElementById('pCategory').innerHTML = opts(data.categories, '选择类目');
-            document.getElementById('eSupplier').innerHTML = opts(data.suppliers, '选择供应商');
+            document.getElementById('eSupplier').innerHTML = opts(data.suppliers, '选择主供应商');
+            document.getElementById('eAltSupplier').innerHTML = opts(data.suppliers, '无备选供应商');
             document.getElementById('eCategory').innerHTML = opts(data.categories, '选择类目');
         }
 
@@ -707,14 +873,38 @@
         function addProduct() {
             const name = document.getElementById('pName').value.trim();
             const supplier = document.getElementById('pSupplier').value;
+            let altSupplier = document.getElementById('pAltSupplier').value;
+            let altName = document.getElementById('pAltName').value.trim();
+            let altDefaultQty = document.getElementById('pAltDefaultQty').value.trim();
+            let altUnit = document.getElementById('pAltUnit').value;
             const category = document.getElementById('pCategory').value;
             const unit = document.getElementById('pUnit').value;
             const defaultQty = document.getElementById('pDefaultQty').value.trim();
 
             if (!name || !supplier || !category) return alert('信息填写不完整');
-            data.products.push({ id: Date.now().toString(), name, supplier, category, unit, defaultQty: defaultQty !== "" ? defaultQty : "1" });
+            if (altSupplier === supplier) { altSupplier = ''; altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; }
+            if (!altSupplier) { altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; }
+
+            data.products.push({
+                id: Date.now().toString(),
+                name,
+                supplier,
+                altSupplier: altSupplier || '',
+                altName: altName || '',
+                altDefaultQty: altDefaultQty || '',
+                altUnit: altUnit !== undefined ? altUnit : '__SAME__',
+                useAlt: false,
+                category,
+                unit,
+                defaultQty: defaultQty !== "" ? defaultQty : "1"
+            });
             save(); handleSearch();
-            document.getElementById('pName').value = ''; document.getElementById('pDefaultQty').value = '';
+            document.getElementById('pName').value = '';
+            document.getElementById('pAltSupplier').value = '';
+            document.getElementById('pAltName').value = '';
+            document.getElementById('pAltDefaultQty').value = '';
+            document.getElementById('pAltUnit').value = '__SAME__';
+            document.getElementById('pDefaultQty').value = '';
             closeAddModal();
         }
 
@@ -752,18 +942,23 @@
             const grouped = {};
             data.categories.forEach(c => grouped[c] = []);
             
+            // 多字段联合检索：无论搜主名称、备选名称、主供应商还是备选供应商，都能命中该卡片
             let filteredProducts = data.products.filter(p => {
                 if (!query) return true;
-                return p.name.toLowerCase().includes(query) || p.supplier.toLowerCase().includes(query);
+                const matchMain = p.name.toLowerCase().includes(query) || p.supplier.toLowerCase().includes(query);
+                const matchAlt = (p.altName && p.altName.toLowerCase().includes(query)) || (p.altSupplier && p.altSupplier.toLowerCase().includes(query));
+                return matchMain || matchAlt;
             });
 
-            // 进行排序
+            // 按当前激活显示的名称进行排序
             filteredProducts.sort((a, b) => {
+                const nameA = getActiveName(a);
+                const nameB = getActiveName(b);
                 if (sortMode === 'first') {
-                    return a.name.localeCompare(b.name, 'zh-CN');
+                    return nameA.localeCompare(nameB, 'zh-CN');
                 } else {
-                    let lastA = a.name.slice(-1);
-                    let lastB = b.name.slice(-1);
+                    let lastA = nameA.slice(-1);
+                    let lastB = nameB.slice(-1);
                     return lastA.localeCompare(lastB, 'zh-CN');
                 }
             });
@@ -781,12 +976,25 @@
                 html += `<div class="cat-section" id="cat-${cat}"><div class="cat-title">${cat}</div>`;
                 grouped[cat].forEach(p => {
                     const isSel = selectedList[p.id] !== undefined;
-                    const qtyInfo = p.defaultQty && p.defaultQty != 1 ? `<span class="default-qty">默认:${p.defaultQty}${p.unit}</span>` : '';
+                    const activeName = getActiveName(p);
+                    const activeSupplier = getActiveSupplier(p);
+                    const activeDefaultQty = getActiveDefaultQty(p);
+                    const activeUnit = getActiveUnit(p);
+                    const qtyInfo = activeDefaultQty && activeDefaultQty != 1 ? `<span class="default-qty">默认:${activeDefaultQty}${activeUnit}</span>` : '';
+                    const altStateBadge = (p.useAlt && p.altSupplier) ? `<span class="alt-active-tag">备选货源</span>` : '';
                     
-                    const adminBtns = isManageMode ? `<button class="admin-btn" style="background:#f0f0f0;" onclick="openEditModal('${p.id}')">改</button><button class="admin-btn" style="background:var(--danger); color:white;" onclick="deleteProduct('${p.id}')">删</button>` : '';
-                    const actionUI = isSel ? `<input type="number" class="inline-qty-input" value="${selectedList[p.id]}" onchange="updateQty('${p.id}', this.value)"><span style="font-size:12px; margin-right:5px; color:var(--text-sub);">${p.unit}</span><button class="btn-select active" onclick="toggleSelect('${p.id}')">已选 ✓</button>` : `<button class="btn-select" onclick="toggleSelect('${p.id}')">选 择</button>`;
+                    let switchBtnHtml = '';
+                    if (p.altSupplier) {
+                        const stSupplier = getStandbySupplier(p);
+                        const stName = getStandbyName(p);
+                        const nameHint = stName !== activeName ? `(${stName})` : '';
+                        switchBtnHtml = `<button class="btn-switch-sup" onclick="switchSupplier('${p.id}')">⇄ 换:${stSupplier}${nameHint}</button>`;
+                    }
 
-                    html += `<div class="product-card ${isSel ? 'active' : ''}"><div class="p-info"><div class="p-name">${p.name} ${qtyInfo}</div><div class="p-meta">${p.supplier} | ${p.unit||'无'}</div></div><div class="p-actions">${adminBtns}${actionUI}</div></div>`;
+                    const adminBtns = isManageMode ? `<button class="admin-btn" style="background:#f0f0f0;" onclick="openEditModal('${p.id}')">改</button><button class="admin-btn" style="background:var(--danger); color:white;" onclick="deleteProduct('${p.id}')">删</button>` : '';
+                    const actionUI = isSel ? `<input type="number" class="inline-qty-input" value="${selectedList[p.id]}" onchange="updateQty('${p.id}', this.value)"><span style="font-size:12px; margin-right:5px; color:var(--text-sub);">${activeUnit}</span><button class="btn-select active" onclick="toggleSelect('${p.id}')">已选 ✓</button>` : `<button class="btn-select" onclick="toggleSelect('${p.id}')">选 择</button>`;
+
+                    html += `<div class="product-card ${isSel ? 'active' : ''}"><div class="p-info"><div class="p-name">${activeName}${altStateBadge} ${qtyInfo}</div><div class="p-meta"><span>${activeSupplier} | ${activeUnit||'无'}</span>${switchBtnHtml}</div></div><div class="p-actions">${adminBtns}${actionUI}</div></div>`;
                 });
                 html += `</div>`;
             }
@@ -850,6 +1058,10 @@
             currentEditId = id;
             document.getElementById('eName').value = product.name || '';
             document.getElementById('eSupplier').value = product.supplier || '';
+            document.getElementById('eAltSupplier').value = product.altSupplier || '';
+            document.getElementById('eAltName').value = product.altName || '';
+            document.getElementById('eAltDefaultQty').value = product.altDefaultQty || '';
+            document.getElementById('eAltUnit').value = (product.altUnit !== undefined && product.altUnit !== null) ? product.altUnit : '__SAME__';
             document.getElementById('eCategory').value = product.category || '';
             document.getElementById('eUnit').value = product.unit || '';
             document.getElementById('eDefaultQty').value = product.defaultQty || '';
@@ -861,9 +1073,24 @@
         function saveProductEdit() {
             const product = data.products.find(p => p.id === currentEditId);
             if(product) {
-                product.name = document.getElementById('eName').value.trim();
-                product.supplier = document.getElementById('eSupplier').value;
-                product.category = document.getElementById('eCategory').value;
+                const name = document.getElementById('eName').value.trim();
+                const supplier = document.getElementById('eSupplier').value;
+                let altSupplier = document.getElementById('eAltSupplier').value;
+                let altName = document.getElementById('eAltName').value.trim();
+                let altDefaultQty = document.getElementById('eAltDefaultQty').value.trim();
+                let altUnit = document.getElementById('eAltUnit').value;
+                const category = document.getElementById('eCategory').value;
+                if (!name || !supplier || !category) return alert('主货品名称、主供应商和类目不能为空');
+                if (altSupplier === supplier) { altSupplier = ''; altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; }
+                if (!altSupplier) { altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; product.useAlt = false; }
+
+                product.name = name;
+                product.supplier = supplier;
+                product.altSupplier = altSupplier;
+                product.altName = altName;
+                product.altDefaultQty = altDefaultQty;
+                product.altUnit = altUnit;
+                product.category = category;
                 product.unit = document.getElementById('eUnit').value;
                 product.defaultQty = document.getElementById('eDefaultQty').value || "1";
                 save(); handleSearch(); updateStatusUI(); closeEditModal();
@@ -880,7 +1107,7 @@
             if (selectedList[id] !== undefined) delete selectedList[id];
             else {
                 const p = data.products.find(item => item.id === id);
-                selectedList[id] = p ? p.defaultQty : 1;
+                selectedList[id] = p ? getActiveDefaultQty(p) : 1;
             }
             handleSearch(); updateStatusUI(); 
         }
@@ -898,9 +1125,12 @@
             for (let id in selectedList) {
                 const p = data.products.find(item => item.id === id);
                 if (!p) continue;
-                if (!grouped[p.supplier]) grouped[p.supplier] = [];
+                const activeSup = getActiveSupplier(p);
+                const activeNam = getActiveName(p);
+                const activeUni = getActiveUnit(p);
+                if (!grouped[activeSup]) grouped[activeSup] = [];
                 const qty = selectedList[id];
-                grouped[p.supplier].push((qty == 0 || qty === "") ? p.name : `${p.name}${qty}${p.unit}`);
+                grouped[activeSup].push((qty == 0 || qty === "") ? activeNam : `${activeNam}${qty}${activeUni}`);
             }
 
             let result = '';
@@ -926,8 +1156,11 @@
         function copyAndClear() {
             document.getElementById('outputText').select(); 
             document.execCommand('copy');
-            alert('复制成功！开货单已清空，准备好迎接明天的开货吧。'); 
-            selectedList = {}; handleSearch(); updateStatusUI(); closeResultModal();
+            alert('复制成功！开货单已清空，所有临时切换的备选货源已自动恢复为默认主供应商。'); 
+            selectedList = {};
+            // 结算清空后自动将所有临时切换的货品复位回默认主供应商
+            data.products.forEach(p => { p.useAlt = false; });
+            handleSearch(); updateStatusUI(); closeResultModal();
         }
 
         function save() { localStorage.setItem('kitchenProData_v6', JSON.stringify(data)); }
