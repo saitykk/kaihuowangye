@@ -82,9 +82,30 @@
         .fab-add { position: fixed; bottom: 85px; right: 20px; width: 50px; height: 50px; background-color: var(--primary); color: white; border-radius: 50%; display: none; justify-content: center; align-items: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0, 132, 255, 0.4); z-index: 1001; border: none; cursor: pointer; }
 
         /* 底部悬浮直接结算栏 */
-        .bottom-cart { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); border-top: 1px solid var(--border); padding: 10px 15px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; }
-        .cart-info { font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 8px;}
-        .btn-checkout { background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 20px; font-size: 15px; font-weight: bold; }
+        .bottom-cart { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); border-top: 1px solid var(--border); padding: 10px 15px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; gap: 10px; }
+        .cart-left { display: flex; align-items: center; gap: 10px; }
+        .cart-info { font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+        .btn-clear-all { background: #fff1f0; color: var(--danger); border: 1px solid #ffa39e; padding: 6px 12px; border-radius: 16px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s; white-space: nowrap; }
+        .btn-clear-all:active { transform: scale(0.95); background: #ffccc7; }
+        .btn-checkout { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 15px; font-weight: bold; cursor: pointer; white-space: nowrap; box-shadow: 0 3px 8px rgba(0, 132, 255, 0.25); }
+        .btn-checkout:active { transform: scale(0.98); }
+
+        /* 结算单全新卡片式 UI */
+        .report-tip { font-size: 13px; color: var(--text-sub); margin-bottom: 12px; background: #eef6ff; color: #0066cc; padding: 8px 12px; border-radius: 8px; line-height: 1.4; }
+        .supplier-card { background: var(--white); border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid var(--border); }
+        .supplier-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed #eee; }
+        .supplier-card-title { font-size: 15px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+        .supplier-item-count { font-size: 12px; color: var(--text-sub); font-weight: normal; background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+        .btn-copy-single { background: var(--primary-light); color: var(--primary); border: 1px solid #b3d8ff; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-copy-single.copied { background: #e6f9f1; color: var(--success); border-color: #87e8de; }
+        .btn-copy-single:active { transform: scale(0.95); }
+        .supplier-card-content { font-size: 14px; color: #444; line-height: 1.6; background: #f9fafb; padding: 10px 12px; border-radius: 8px; word-break: break-all; user-select: all; }
+        .summary-block { margin-top: 16px; background: var(--white); border-radius: 12px; padding: 14px; border: 1px solid var(--border); }
+        .summary-block-title { font-size: 14px; font-weight: 600; color: var(--text-sub); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .result-footer { padding: 12px 15px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 10px; box-shadow: 0 -2px 10px rgba(0,0,0,0.04); }
+        .btn-copy-all { flex: 2; background: var(--primary); color: white; border: none; padding: 13px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 132, 255, 0.25); }
+        .btn-copy-all.copied { background: var(--success); }
+        .btn-back-list { flex: 1; background: var(--bg); color: var(--text-main); border: 1px solid #ddd; padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; }
 
         /* 管理面板及通用表单 */
         .admin-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px dashed #ccc; display: none; }
@@ -103,7 +124,7 @@
         /* 在空位处显示一条蓝色的插入指示线 */
         .draggable-cat.drag-over::before { content: ''; position: absolute; left: -25px; top: 50%; transform: translateY(-50%); width: 4px; height: 70%; background: var(--primary); border-radius: 2px; }
         
-        .drag-handle { color: #aaa; margin-right: 6px; font-size: 14px; display: flex; align-items: center;}
+        .drag-handle { color: #aaa; margin-right: 6px; padding: 2px 4px 2px 0; font-size: 15px; display: flex; align-items: center; touch-action: none; }
 
         /* 全屏与半屏弹窗 */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; display: none; flex-direction: column; }
@@ -273,7 +294,10 @@
     <div class="main-content" id="mainProductList"></div>
 
     <div class="bottom-cart" id="bottomCart" style="display: none;">
-        <div class="cart-info">已选 <span id="cartCount" style="color:var(--primary); font-size:18px;">0</span> 项</div>
+        <div class="cart-left">
+            <div class="cart-info">已选 <span id="cartCount" style="color:var(--primary); font-size:18px;">0</span> 项</div>
+            <button class="btn-clear-all" onclick="clearAllSelections()">🗑️ 一键清空</button>
+        </div>
         <button class="btn-checkout" onclick="generateReport()">一键生成结算单</button>
     </div>
 
@@ -291,9 +315,9 @@
                 <ul>
                     <li><b>找货：</b>在顶部搜索框输入拼音或文字即可快速找货，搜索框右侧带有一键清空按钮；或者滑动导航栏点击类别跳转。可以使用右上角的排序按钮切换首字/尾字排序。</li>
                     <li><b>点货：</b>找到所需货品，点击右侧的<b>“选择”</b>按钮，系统会自动填入默认数量。</li>
-                    <li><b>切换主/备供应商：</b>绑定了备选货源的货品，卡片下方会显示橙色<b>“⇄ 换:供应商”</b>按钮。点击即可临时切换供应商、对应货品名、默认数量及单位；点击“复制文本，并清空开货单”后会自动恢复为默认主供应商。</li>
-                    <li><b>改量：</b>点选后，货品背景变蓝，你可以直接在输入框修改数量。</li>
-                    <li><b>结算：</b>全部点完后，点击屏幕最下方出现的<b>“一键生成结算单”</b>，系统会自动按供应商对账单进行分类排版。</li>
+                    <li><b>切换主/备供应商：</b>绑定了备选货源的货品，卡片下方会显示橙色<b>“⇄ 换:供应商”</b>按钮。点击即可临时切换供应商、对应货品名、默认数量及单位。</li>
+                    <li><b>改量与清空：</b>点选后可直接修改数量；点击底部结算栏左侧的<b>“🗑️ 一键清空”</b>可清空所有已选货品并自动恢复为默认主供应商。</li>
+                    <li><b>分单与合并结算：</b>点击底部<b>“一键生成结算单”</b>后，既可以按每个供应商卡片点击<b>“单独复制”</b>逐个发微信，也可以点击底部<b>“合并复制全部”</b>一次性复制整单。</li>
                 </ul>
             </div>
 
@@ -337,8 +361,17 @@
                 <select id="pSupplier" class="form-input"></select>
                 <select id="pCategory" class="form-input"></select>
             </div>
+            <div class="form-row">
+                <input type="number" id="pDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
+                <select id="pUnit" class="form-input">
+                    <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
+                    <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
+                    <option value="把">把</option><option value="条">条</option><option value="块">块</option>
+                    <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
+                </select>
+            </div>
             <div class="alt-box">
-                <span class="alt-box-title">🔄 备选货源 (选填：老供应商及专属名称/规格，不填默认同主货源)</span>
+                <span class="alt-box-title">🔄 备选货源 (选填：老供应商及专属名称/规格，不填默认同上)</span>
                 <div class="form-row" style="margin-bottom:8px;">
                     <select id="pAltSupplier" class="form-input"></select>
                     <input type="text" id="pAltName" class="form-input" placeholder="备选货品名(同主名不填)">
@@ -353,15 +386,6 @@
                         <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-row">
-                <input type="number" id="pDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
-                <select id="pUnit" class="form-input">
-                    <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
-                    <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
-                    <option value="把">把</option><option value="条">条</option><option value="块">块</option>
-                    <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
-                </select>
             </div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeAddModal()">取消</button>
@@ -378,8 +402,17 @@
                 <select id="eSupplier" class="form-input"></select>
                 <select id="eCategory" class="form-input"></select>
             </div>
+            <div class="form-row">
+                <input type="number" id="eDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
+                <select id="eUnit" class="form-input">
+                    <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
+                    <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
+                    <option value="把">把</option><option value="条">条</option><option value="块">块</option>
+                    <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
+                </select>
+            </div>
             <div class="alt-box">
-                <span class="alt-box-title">🔄 备选货源 (选填：老供应商及专属名称/规格，不填默认同主货源)</span>
+                <span class="alt-box-title">🔄 备选货源 (选填：老供应商及专属名称/规格，不填默认同上)</span>
                 <div class="form-row" style="margin-bottom:8px;">
                     <select id="eAltSupplier" class="form-input"></select>
                     <input type="text" id="eAltName" class="form-input" placeholder="备选货品名(同主名不填)">
@@ -395,15 +428,6 @@
                     </select>
                 </div>
             </div>
-            <div class="form-row">
-                <input type="number" id="eDefaultQty" class="form-input" placeholder="输入默认数量" step="0.1">
-                <select id="eUnit" class="form-input">
-                    <option value="kg">kg</option><option value="件">件</option><option value="包">包</option>
-                    <option value="箱">箱</option><option value="盒">盒</option><option value="个">个</option>
-                    <option value="把">把</option><option value="条">条</option><option value="块">块</option>
-                    <option value="袋">袋</option><option value="瓶">瓶</option><option value="桶">桶</option><option value="">无单位</option>
-                </select>
-            </div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeEditModal()">取消</button>
                 <button class="btn-submit" onclick="saveProductEdit()">保存修改</button>
@@ -413,16 +437,23 @@
 
     <div class="modal" id="resultModal">
         <div class="modal-header">
-            <h2 style="margin:0; font-size: 18px;">🧾 结算结果</h2>
+            <h2 style="margin:0; font-size: 18px;">🧾 每日开货结算单</h2>
             <button class="btn-close" onclick="closeResultModal()">×</button>
         </div>
         <div class="modal-body">
-            <textarea id="outputText" readonly></textarea>
-            
-            <div style="display:flex; flex-direction: column; gap:10px; margin-top:20px;">
-                <button style="background:var(--success); color:white; border:none; padding:12px; border-radius:8px; font-size:16px; font-weight:bold;" onclick="copyAndClear()">复制文本，并清空开货单</button>
-                <button style="background:var(--bg); color:var(--text-main); border:1px solid #ccc; padding:12px; border-radius:8px; font-size:15px;" onclick="justCopy()">仅复制文本 (保留勾选状态)</button>
+            <div class="report-tip">💡 可点击各供应商卡片右上角<b>“单独复制”</b>逐一发微信，也可点击底部<b>“合并复制全部”</b>汇总发送。</div>
+            <div id="supplierCardsContainer"></div>
+            <div class="summary-block">
+                <div class="summary-block-title">
+                    <span>📄 全部供应商汇总预览</span>
+                    <span id="totalSummaryCount" style="font-size:12px; color:var(--primary);"></span>
+                </div>
+                <textarea id="outputText" style="height:120px; background:#f9fafb; font-size:13px; color:#555;" readonly></textarea>
             </div>
+        </div>
+        <div class="result-footer">
+            <button class="btn-back-list" onclick="closeResultModal()">返回修改</button>
+            <button class="btn-copy-all" id="btnCopyAll" onclick="copyAllReport()">📋 合并复制全部</button>
         </div>
     </div>
 
@@ -543,81 +574,105 @@
         };
 
         // ⬇️ === 双轨制智能升级系统 === ⬇️
-        const CODE_VERSION = 3.1; // 💡 以后你想加新菜，就修改这个数字（变成 3.1, 3.2...）
-        const FORCE_RESET_VERSION = 3.1; // 🚨 强制重置水位线（3.1 同步最新主备数据与分类）
+        const CODE_VERSION = 3.2; // 💡 以后你想加新菜，就修改这个数字（变成 3.3, 3.4...）
+        const FORCE_RESET_VERSION = 3.1; // 🚨 强制重置水位线（保持 3.1 基线）
 
-        let localDataRaw = localStorage.getItem('kitchenProData_v6');
         let data;
-        let sortMode = 'first'; 
-
-        if (localDataRaw) {
-            data = JSON.parse(localDataRaw);
-            let localVersion = data.version || 1.0; 
-            
-            if (localVersion < FORCE_RESET_VERSION) {
-                // 💥 第一轨：如果发现旧版本（小于2.0），直接无情抹除，强行洗牌！
-                data = JSON.parse(JSON.stringify(PRESET_DATA)); 
-                data.version = CODE_VERSION; 
-                localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
-                setTimeout(() => {
-                    alert("🚨 系统底层已全面升级！为了保证不冲突，货品已自动重置为纯净标准版。");
-                }, 500);
-            } else if (localVersion < CODE_VERSION) {
-                // 🍃 第二轨：如果已经是2.0以上的系统，说明洗过牌了，以后就执行温柔合并，保留同事加的私有菜！
-                PRESET_DATA.products.forEach(presetProduct => {
-                    const exists = data.products.find(p => p.id === presetProduct.id);
-                    if (!exists) {
-                        data.products.push(presetProduct);
-                    } else {
-                        const savedAltSupplier = exists.altSupplier;
-                        const savedAltName = exists.altName;
-                        const savedAltDefaultQty = exists.altDefaultQty;
-                        const savedAltUnit = exists.altUnit;
-                        Object.assign(exists, presetProduct);
-                        if (presetProduct.altSupplier === undefined && savedAltSupplier) {
-                            exists.altSupplier = savedAltSupplier;
-                            exists.altName = savedAltName || '';
-                            exists.altDefaultQty = savedAltDefaultQty || '';
-                            exists.altUnit = savedAltUnit !== undefined ? savedAltUnit : '__SAME__';
-                        }
-                        exists.useAlt = false;
-                    }
-                });
-
-                PRESET_DATA.suppliers.forEach(s => {
-                    if (!data.suppliers.includes(s)) data.suppliers.push(s);
-                });
-                PRESET_DATA.categories.forEach(c => {
-                    if (!data.categories.includes(c)) data.categories.push(c);
-                });
-
-                data.version = CODE_VERSION;
-                localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
-                setTimeout(() => {
-                    alert("✨ 货品库已自动同步最新版本，您个人添加的私有数据已完美保留！");
-                }, 500);
-            }
-        } else {
-            // 新人第一次打开
-            data = JSON.parse(JSON.stringify(PRESET_DATA)); 
-            data.version = CODE_VERSION;
-            localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
-        }
-        // ⬆️ === 智能升级系统结束 === ⬆️
-
-        let selectedList = {}; 
+        let sortMode = 'first';
+        let selectedList = {};
         let isManageMode = false;
         let currentEditId = null;
-        let isScrollingFromNav = false; 
+        let isScrollingFromNav = false;
+
+        try {
+            let localDataRaw = localStorage.getItem('kitchenProData_v6');
+            if (localDataRaw) {
+                data = JSON.parse(localDataRaw);
+                let localVersion = data.version || 1.0; 
+                
+                if (localVersion < FORCE_RESET_VERSION) {
+                    // 💥 第一轨：如果发现旧版本低于强制水位线，重置为最新标准版
+                    data = JSON.parse(JSON.stringify(PRESET_DATA)); 
+                    data.version = CODE_VERSION; 
+                    localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+                    localStorage.removeItem('kitchenProCart_v6');
+                    setTimeout(() => {
+                        alert("🚨 系统底层已全面升级！为了保证不冲突，货品已自动重置为纯净标准版。");
+                    }, 500);
+                } else if (localVersion < CODE_VERSION) {
+                    // 🍃 第二轨：增量合并，保留私有菜与未结算状态
+                    PRESET_DATA.products.forEach(presetProduct => {
+                        const exists = data.products.find(p => p.id === presetProduct.id);
+                        if (!exists) {
+                            data.products.push(presetProduct);
+                        } else {
+                            const savedUseAlt = exists.useAlt;
+                            const savedAltSupplier = exists.altSupplier;
+                            const savedAltName = exists.altName;
+                            const savedAltDefaultQty = exists.altDefaultQty;
+                            const savedAltUnit = exists.altUnit;
+                            Object.assign(exists, presetProduct);
+                            if (!presetProduct.altSupplier && savedAltSupplier) {
+                                exists.altSupplier = savedAltSupplier;
+                                exists.altName = savedAltName || '';
+                                exists.altDefaultQty = savedAltDefaultQty || '';
+                                exists.altUnit = savedAltUnit !== undefined ? savedAltUnit : '__SAME__';
+                            }
+                            exists.useAlt = Boolean(savedUseAlt && exists.altSupplier);
+                        }
+                    });
+
+                    PRESET_DATA.suppliers.forEach(s => {
+                        if (!data.suppliers.includes(s)) data.suppliers.push(s);
+                    });
+                    PRESET_DATA.categories.forEach(c => {
+                        if (!data.categories.includes(c)) data.categories.push(c);
+                    });
+
+                    data.version = CODE_VERSION;
+                    localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+                    setTimeout(() => {
+                        alert("✨ 货品库已自动同步最新版本，您个人添加的私有数据已完美保留！");
+                    }, 500);
+                }
+            } else {
+                // 新人第一次打开
+                data = JSON.parse(JSON.stringify(PRESET_DATA)); 
+                data.version = CODE_VERSION;
+                localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+            }
+        } catch (err) {
+            console.error('缓存读取异常，已启用内存标准数据:', err);
+            data = JSON.parse(JSON.stringify(PRESET_DATA));
+            data.version = CODE_VERSION;
+        }
+
+        // 读取未结算的开货单草稿（防止切微信、接电话或误刷新网页导致已选货品丢失）
+        try {
+            const savedCartRaw = localStorage.getItem('kitchenProCart_v6');
+            if (savedCartRaw) {
+                const parsedCart = JSON.parse(savedCartRaw);
+                if (parsedCart && typeof parsedCart === 'object') {
+                    // 仅恢复依然存在于当前货品库中的有效货品
+                    const validIds = new Set((data.products || []).map(p => p.id));
+                    for (let id in parsedCart) {
+                        if (validIds.has(id)) {
+                            selectedList[id] = parsedCart[id];
+                        }
+                    }
+                }
+            }
+        } catch (err) {
+            selectedList = {};
+        }
+        // ⬆️ === 智能升级与状态恢复结束 === ⬆️
 
         function init() {
-            if (data && Array.isArray(data.products)) {
-                data.products.forEach(p => { p.useAlt = false; });
-            }
             document.getElementById('shopNameInput').value = data.shopName || '';
             updateDropdowns();
             renderSuppliersCategories();
             renderProductList(); 
+            updateStatusUI();
             initScrollSpy();
         }
 
@@ -633,9 +688,14 @@
 
         function exportData() {
             data.version = CODE_VERSION;
+            const cleanCopy = JSON.parse(JSON.stringify(data));
+            cleanCopy.products.forEach(p => { p.useAlt = false; });
             const ta = document.getElementById('ioTextarea');
-            ta.value = JSON.stringify(data, null, 2);
-            ta.select(); document.execCommand('copy');
+            ta.value = JSON.stringify(cleanCopy, null, 2);
+            ta.focus();
+            ta.select();
+            ta.setSelectionRange(0, 999999);
+            try { document.execCommand('copy'); } catch (e) {}
             alert("数据已生成并尝试复制！");
         }
 
@@ -664,7 +724,7 @@
                                 parsed.categories.push(p.category);
                             }
                         });
-                        data = parsed; selectedList = {}; save(); init();
+                        data = parsed; selectedList = {}; save(); saveCart(); init();
                         ta.value = ""; alert("导入成功！");
                     }
                 } else alert("数据格式缺少必要字段。");
@@ -696,9 +756,33 @@
         }
 
         function deleteBaseData(type, index) {
-            if (confirm('确定删除吗？')) {
+            const targetName = data[type][index];
+            if (type === 'categories') {
+                const usedCount = data.products.filter(p => p.category === targetName).length;
+                if (usedCount > 0) {
+                    return alert(`无法直接删除：类目“${targetName}”下还有 ${usedCount} 个货品！\n请先点击该类目改名合并，或将其下的货品移至其他类目后再删除。`);
+                }
+            } else if (type === 'suppliers') {
+                const usedMainCount = data.products.filter(p => p.supplier === targetName).length;
+                if (usedMainCount > 0) {
+                    return alert(`无法直接删除：还有 ${usedMainCount} 个货品以“${targetName}”为主供应商！\n请先点击该供应商改名合并，或修改对应货品后再删除。`);
+                }
+            }
+            if (confirm(`确定删除“${targetName}”吗？`)) {
                 data[type].splice(index, 1);
-                save(); updateDropdowns(); renderSuppliersCategories();
+                if (type === 'suppliers') {
+                    // 若有货品将其作为备选供应商，自动清理备选绑定
+                    data.products.forEach(p => {
+                        if (p.altSupplier === targetName) {
+                            p.altSupplier = '';
+                            p.altName = '';
+                            p.altDefaultQty = '';
+                            p.altUnit = '__SAME__';
+                            p.useAlt = false;
+                        }
+                    });
+                }
+                save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
             }
         }
 
@@ -792,6 +876,52 @@
             items.forEach(function (item) { item.classList.remove('drag-over'); });
         }
 
+        // 手机触屏拖拽支持（按住 ☰ 即可在手机上顺滑拖动类目排序）
+        let touchDragSrcEl = null;
+        let touchCurrentTarget = null;
+
+        function handleTouchStart(e) {
+            // 仅当手指按在左侧 ☰ 手柄上时启动拖拽，避免影响点击改名或删除
+            if (!e.target.closest('.drag-handle')) return;
+            touchDragSrcEl = this;
+            touchCurrentTarget = null;
+            this.classList.add('dragging');
+        }
+
+        function handleTouchMove(e) {
+            if (!touchDragSrcEl) return;
+            if (e.cancelable) e.preventDefault(); // 阻止页面上下滚动
+            const touch = e.touches[0];
+            const elUnderFinger = document.elementFromPoint(touch.clientX, touch.clientY);
+            const catEl = elUnderFinger ? elUnderFinger.closest('.draggable-cat') : null;
+
+            document.querySelectorAll('.draggable-cat').forEach(item => item.classList.remove('drag-over'));
+            if (catEl && catEl !== touchDragSrcEl) {
+                catEl.classList.add('drag-over');
+                touchCurrentTarget = catEl;
+            } else {
+                touchCurrentTarget = null;
+            }
+        }
+
+        function handleTouchEnd(e) {
+            if (!touchDragSrcEl) return;
+            touchDragSrcEl.classList.remove('dragging');
+            document.querySelectorAll('.draggable-cat').forEach(item => item.classList.remove('drag-over'));
+
+            if (touchCurrentTarget && touchCurrentTarget !== touchDragSrcEl) {
+                let srcIndex = parseInt(touchDragSrcEl.getAttribute('data-index'));
+                let tgtIndex = parseInt(touchCurrentTarget.getAttribute('data-index'));
+                if (!isNaN(srcIndex) && !isNaN(tgtIndex)) {
+                    let cat = data.categories.splice(srcIndex, 1)[0];
+                    data.categories.splice(tgtIndex, 0, cat);
+                    save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
+                }
+            }
+            touchDragSrcEl = null;
+            touchCurrentTarget = null;
+        }
+
         function renderSuppliersCategories() {
             document.getElementById('supplierListContainer').innerHTML = data.suppliers.map((s, i) => 
                 `<span class="tag">
@@ -808,7 +938,7 @@
                 </span>`
             ).join('');
 
-            // 绑定拖拽事件
+            // 绑定电脑鼠标与手机触屏双端拖拽事件
             let dragItems = document.querySelectorAll('.draggable-cat');
             dragItems.forEach(function(item) {
                 item.addEventListener('dragstart', handleDragStart, false);
@@ -817,6 +947,11 @@
                 item.addEventListener('dragleave', handleDragLeave, false);
                 item.addEventListener('drop', handleDrop, false);
                 item.addEventListener('dragend', handleDragEnd, false);
+
+                item.addEventListener('touchstart', handleTouchStart, { passive: true });
+                item.addEventListener('touchmove', handleTouchMove, { passive: false });
+                item.addEventListener('touchend', handleTouchEnd, false);
+                item.addEventListener('touchcancel', handleTouchEnd, false);
             });
         }
 
@@ -853,7 +988,9 @@
             // 若该货品已勾选且数量仍为切换前的默认数量，自动同步为切换后货源的默认数量
             if (selectedList[id] !== undefined && String(selectedList[id]) === String(prevDefaultQty)) {
                 selectedList[id] = getActiveDefaultQty(p);
+                saveCart();
             }
+            save();
             handleSearch();
         }
 
@@ -992,7 +1129,7 @@
                     }
 
                     const adminBtns = isManageMode ? `<button class="admin-btn" style="background:#f0f0f0;" onclick="openEditModal('${p.id}')">改</button><button class="admin-btn" style="background:var(--danger); color:white;" onclick="deleteProduct('${p.id}')">删</button>` : '';
-                    const actionUI = isSel ? `<input type="number" class="inline-qty-input" value="${selectedList[p.id]}" onchange="updateQty('${p.id}', this.value)"><span style="font-size:12px; margin-right:5px; color:var(--text-sub);">${activeUnit}</span><button class="btn-select active" onclick="toggleSelect('${p.id}')">已选 ✓</button>` : `<button class="btn-select" onclick="toggleSelect('${p.id}')">选 择</button>`;
+                    const actionUI = isSel ? `<input type="number" class="inline-qty-input" min="0" step="any" value="${selectedList[p.id]}" oninput="updateQty('${p.id}', this.value)"><span style="font-size:12px; margin-right:5px; color:var(--text-sub);">${activeUnit}</span><button class="btn-select active" onclick="toggleSelect('${p.id}')">已选 ✓</button>` : `<button class="btn-select" onclick="toggleSelect('${p.id}')">选 择</button>`;
 
                     html += `<div class="product-card ${isSel ? 'active' : ''}"><div class="p-info"><div class="p-name">${activeName}${altStateBadge} ${qtyInfo}</div><div class="p-meta"><span>${activeSupplier} | ${activeUnit||'无'}</span>${switchBtnHtml}</div></div><div class="p-actions">${adminBtns}${actionUI}</div></div>`;
                 });
@@ -1100,7 +1237,7 @@
         function deleteProduct(id) {
             if (!confirm('确定删除该货品？')) return;
             data.products = data.products.filter(p => p.id !== id);
-            delete selectedList[id]; save(); handleSearch(); updateStatusUI();
+            delete selectedList[id]; save(); saveCart(); handleSearch(); updateStatusUI();
         }
 
         function toggleSelect(id) {
@@ -1109,9 +1246,13 @@
                 const p = data.products.find(item => item.id === id);
                 selectedList[id] = p ? getActiveDefaultQty(p) : 1;
             }
-            handleSearch(); updateStatusUI(); 
+            saveCart(); handleSearch(); updateStatusUI(); 
         }
-        function updateQty(id, qty) { selectedList[id] = qty; }
+
+        function updateQty(id, qty) {
+            selectedList[id] = qty;
+            saveCart();
+        }
         
         function updateStatusUI() {
             const count = Object.keys(selectedList).length;
@@ -1120,50 +1261,178 @@
             else bar.style.display = 'none';
         }
 
+        // 主界面一键清空所有已选货品，并自动将临时切换的备选货源恢复为默认主供应商
+        function clearAllSelections() {
+            const count = Object.keys(selectedList).length;
+            if (count === 0) return;
+            if (!confirm(`确定要清空当前已选的 ${count} 项货品，并恢复默认主供应商吗？`)) return;
+            selectedList = {};
+            data.products.forEach(p => { p.useAlt = false; });
+            save();
+            saveCart();
+            handleSearch();
+            updateStatusUI();
+        }
+
+        let currentSupplierLines = [];
+
         function generateReport() {
             const grouped = {};
-            for (let id in selectedList) {
-                const p = data.products.find(item => item.id === id);
-                if (!p) continue;
+            let totalItems = 0;
+            // 按货品在货品库中的标准顺序遍历，保证同一供应商内部货品顺序也稳定一致
+            data.products.forEach(p => {
+                if (selectedList[p.id] === undefined) return;
+                totalItems++;
                 const activeSup = getActiveSupplier(p);
                 const activeNam = getActiveName(p);
                 const activeUni = getActiveUnit(p);
                 if (!grouped[activeSup]) grouped[activeSup] = [];
-                const qty = selectedList[id];
+                const qty = selectedList[p.id];
                 grouped[activeSup].push((qty == 0 || qty === "") ? activeNam : `${activeNam}${qty}${activeUni}`);
-            }
+            });
 
-            let result = '';
             const shopPrefix = data.shopName ? `${data.shopName} ` : ''; 
 
+            // 严格按照后台基础库 data.suppliers 的固定标准顺序输出
+            const orderedSuppliers = [...data.suppliers];
             for (let s in grouped) {
-                result += `${s}:${shopPrefix}${grouped[s].join('，')}\n\n`;
+                if (!orderedSuppliers.includes(s)) orderedSuppliers.push(s);
             }
 
-            document.getElementById('outputText').value = result.trim();
+            currentSupplierLines = [];
+            let cardsHtml = '';
+            let combinedText = '';
+
+            orderedSuppliers.forEach(s => {
+                if (grouped[s] && grouped[s].length > 0) {
+                    // 单独发给供应商的文本不含供应商名字前缀，仅保留店铺名+货品清单
+                    const singleText = `${shopPrefix}${grouped[s].join('，')}`;
+                    // 全部汇总文本保留供应商名字前缀，方便总览区分
+                    const fullLineText = `${s}:${singleText}`;
+                    const idx = currentSupplierLines.length;
+                    currentSupplierLines.push({ supplier: s, text: singleText, count: grouped[s].length });
+                    combinedText += fullLineText + '\n\n';
+
+                    cardsHtml += `
+                        <div class="supplier-card">
+                            <div class="supplier-card-header">
+                                <div class="supplier-card-title">
+                                    <span>🏪 ${s}</span>
+                                    <span class="supplier-item-count">${grouped[s].length} 项</span>
+                                </div>
+                                <button class="btn-copy-single" id="btnCopySup-${idx}" onclick="copySingleSupplier(${idx})">📋 单独复制</button>
+                            </div>
+                            <div class="supplier-card-content">${singleText}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('supplierCardsContainer').innerHTML = cardsHtml;
+            document.getElementById('totalSummaryCount').innerText = `共 ${currentSupplierLines.length} 家供应商 / ${totalItems} 项货品`;
+            document.getElementById('outputText').value = combinedText.trim();
+
+            const btnAll = document.getElementById('btnCopyAll');
+            if (btnAll) {
+                btnAll.classList.remove('copied');
+                btnAll.innerText = '📋 合并复制全部';
+            }
+
             document.getElementById('resultModal').style.display = 'flex';
         }
         
         function closeResultModal() { document.getElementById('resultModal').style.display = 'none'; }
+
+        // 兼容苹果 iOS / 安卓各浏览器的稳健复制函数（支持传入任意文本复制）
+        function copyTextSafe(text, onSuccess) {
+            const fallbackCopy = () => {
+                const tempTa = document.createElement('textarea');
+                tempTa.value = text;
+                tempTa.style.position = 'fixed';
+                tempTa.style.left = '-9999px';
+                tempTa.style.top = '0';
+                document.body.appendChild(tempTa);
+                tempTa.focus();
+                tempTa.select();
+                tempTa.setSelectionRange(0, 999999);
+                let ok = false;
+                try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+                document.body.removeChild(tempTa);
+                if (ok) {
+                    onSuccess();
+                } else {
+                    alert('自动复制受浏览器限制，请长按对应文本手动复制！');
+                }
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(onSuccess).catch(fallbackCopy);
+            } else {
+                fallbackCopy();
+            }
+        }
         
-        function justCopy() {
-            document.getElementById('outputText').select(); 
-            document.execCommand('copy');
-            alert('结算单已复制！快去微信粘贴发给供应商吧。'); 
-            closeResultModal();
+        // 单独复制某一家供应商的结算文本（同时只能存在一个“✓ 已复制”按钮）
+        function copySingleSupplier(idx) {
+            const item = currentSupplierLines[idx];
+            if (!item) return;
+            copyTextSafe(item.text, () => {
+                // 先将其它所有单独复制按钮恢复为初始状态
+                document.querySelectorAll('.btn-copy-single').forEach(b => {
+                    b.classList.remove('copied');
+                    b.innerText = '📋 单独复制';
+                });
+                const btnAll = document.getElementById('btnCopyAll');
+                if (btnAll) {
+                    btnAll.classList.remove('copied');
+                    btnAll.innerText = '📋 合并复制全部';
+                }
+                // 仅将当前点击的按钮设为“✓ 已复制”
+                const btn = document.getElementById(`btnCopySup-${idx}`);
+                if (btn) {
+                    btn.classList.add('copied');
+                    btn.innerText = '✓ 已复制';
+                }
+            });
         }
 
-        function copyAndClear() {
-            document.getElementById('outputText').select(); 
-            document.execCommand('copy');
-            alert('复制成功！开货单已清空，所有临时切换的备选货源已自动恢复为默认主供应商。'); 
-            selectedList = {};
-            // 结算清空后自动将所有临时切换的货品复位回默认主供应商
-            data.products.forEach(p => { p.useAlt = false; });
-            handleSearch(); updateStatusUI(); closeResultModal();
+        // 合并复制全部供应商的结算文本
+        function copyAllReport() {
+            const text = document.getElementById('outputText').value;
+            if (!text) return;
+            copyTextSafe(text, () => {
+                document.querySelectorAll('.btn-copy-single').forEach(b => {
+                    b.classList.remove('copied');
+                    b.innerText = '📋 单独复制';
+                });
+                const btn = document.getElementById('btnCopyAll');
+                if (btn) {
+                    btn.classList.add('copied');
+                    btn.innerText = '✓ 全部已复制';
+                }
+                alert('全部供应商结算单已合并复制！快去微信粘贴发送吧。');
+            });
         }
 
-        function save() { localStorage.setItem('kitchenProData_v6', JSON.stringify(data)); }
+        function save() {
+            try {
+                localStorage.setItem('kitchenProData_v6', JSON.stringify(data));
+            } catch (e) {
+                console.error('保存货品库失败:', e);
+            }
+        }
+
+        function saveCart() {
+            try {
+                if (Object.keys(selectedList).length === 0) {
+                    localStorage.removeItem('kitchenProCart_v6');
+                } else {
+                    localStorage.setItem('kitchenProCart_v6', JSON.stringify(selectedList));
+                }
+            } catch (e) {
+                console.error('保存开货单草稿失败:', e);
+            }
+        }
 
         init();
     </script>
