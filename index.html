@@ -91,21 +91,23 @@
         .btn-checkout:active { transform: scale(0.98); }
 
         /* 结算单全新卡片式 UI */
-        .report-tip { font-size: 13px; color: var(--text-sub); margin-bottom: 12px; background: #eef6ff; color: #0066cc; padding: 8px 12px; border-radius: 8px; line-height: 1.4; }
-        .supplier-card { background: var(--white); border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid var(--border); }
-        .supplier-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed #eee; }
-        .supplier-card-title { font-size: 15px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
-        .supplier-item-count { font-size: 12px; color: var(--text-sub); font-weight: normal; background: var(--bg); padding: 2px 8px; border-radius: 10px; }
-        .btn-copy-single { background: var(--primary-light); color: var(--primary); border: 1px solid #b3d8ff; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn-copy-single.copied { background: #e6f9f1; color: var(--success); border-color: #87e8de; }
-        .btn-copy-single:active { transform: scale(0.95); }
-        .supplier-card-content { font-size: 14px; color: #444; line-height: 1.6; background: #f9fafb; padding: 10px 12px; border-radius: 8px; word-break: break-all; user-select: all; }
-        .summary-block { margin-top: 16px; background: var(--white); border-radius: 12px; padding: 14px; border: 1px solid var(--border); }
-        .summary-block-title { font-size: 14px; font-weight: 600; color: var(--text-sub); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .result-footer { padding: 12px 15px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 10px; box-shadow: 0 -2px 10px rgba(0,0,0,0.04); }
-        .btn-copy-all { flex: 2; background: var(--primary); color: white; border: none; padding: 13px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 132, 255, 0.25); }
-        .btn-copy-all.copied { background: var(--success); }
-        .btn-back-list { flex: 1; background: var(--bg); color: var(--text-main); border: 1px solid #ddd; padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .report-tip { font-size: 13px; margin-bottom: 14px; background: linear-gradient(135deg, #eef6ff 0%, #e0f0ff 100%); color: #0052a3; padding: 10px 14px; border-radius: 12px; line-height: 1.5; border: 1px solid #cce3ff; font-weight: 500; }
+        .supplier-card { background: var(--white); border-radius: 16px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05); border: 1px solid #e8eef5; border-left: 4px solid var(--primary); }
+        .supplier-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #e2e8f0; }
+        .supplier-card-title { font-size: 16px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+        .supplier-item-count { font-size: 12px; color: var(--primary); font-weight: 700; background: var(--primary-light); padding: 2px 9px; border-radius: 12px; }
+        .btn-copy-single { background: linear-gradient(135deg, #0084ff 0%, #0066cc 100%); color: #ffffff; border: none; padding: 8px 16px; border-radius: 18px; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0, 132, 255, 0.25); }
+        .btn-copy-single.copied { background: linear-gradient(135deg, #00b578 0%, #009460 100%); color: #ffffff; box-shadow: 0 4px 10px rgba(0, 181, 120, 0.28); }
+        .btn-copy-single:active { transform: scale(0.94); }
+        .supplier-card-content { font-size: 14px; color: #334155; line-height: 1.65; background: #f8fafc; padding: 11px 13px; border-radius: 10px; border: 1px solid #edf2f7; word-break: break-all; user-select: all; }
+        .summary-block { margin-top: 16px; background: var(--white); border-radius: 16px; padding: 15px; border: 1px solid #e8eef5; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03); }
+        .summary-block-title { font-size: 14px; font-weight: 700; color: #334155; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .result-footer { padding: 14px 16px; background: var(--white); border-top: 1px solid #e8eef5; display: flex; gap: 12px; box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.06); }
+        .btn-copy-all { flex: 1.8; background: linear-gradient(135deg, #0084ff 0%, #005ce6 100%); color: white; border: none; padding: 14px; border-radius: 14px; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 18px rgba(0, 132, 255, 0.32); transition: 0.2s; }
+        .btn-copy-all.copied { background: linear-gradient(135deg, #00b578 0%, #009460 100%); box-shadow: 0 6px 18px rgba(0, 181, 120, 0.32); }
+        .btn-copy-all:active { transform: scale(0.97); }
+        .btn-back-list { flex: 1; background: #f1f5f9; color: #334155; border: 1.5px solid #cbd5e1; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-back-list:active { background: #e2e8f0; transform: scale(0.97); }
 
         /* 管理面板及通用表单 */
         .admin-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px dashed #ccc; display: none; }
@@ -126,57 +128,119 @@
         
         .drag-handle { color: #aaa; margin-right: 6px; padding: 2px 4px 2px 0; font-size: 15px; display: flex; align-items: center; touch-action: none; }
 
-        /* 全屏与半屏弹窗 */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; display: none; flex-direction: column; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .modal-box { background: white; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; box-sizing: border-box; }
-        .modal-header { padding: 15px; background: white; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-        .modal-body { padding: 15px; flex: 1; overflow-y: auto; }
-        .btn-close { background: none; border: none; font-size: 24px; color: var(--text-sub); }
+        /* 现代感全屏与居中弹窗系统 */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #f4f6f9; z-index: 2000; display: none; flex-direction: column;
+            animation: fadeInModal 0.22s ease-out forwards;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            z-index: 2100; display: none; align-items: center; justify-content: center;
+            padding: 16px; box-sizing: border-box;
+            overscroll-behavior: contain; touch-action: none;
+        }
+        .modal-header {
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e8eef5;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            touch-action: none;
+        }
+        .modal-header-title {
+            margin: 0; font-size: 18px; font-weight: 700; color: #1e293b;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .modal-body {
+            padding: 16px; flex: 1; overflow-y: auto;
+            overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+        }
+        .btn-close {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: #f1f5f9; border: none; font-size: 20px; font-weight: bold;
+            color: #64748b; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s; line-height: 1;
+        }
+        .btn-close:active { background: #e2e8f0; transform: scale(0.92); }
         
-        textarea { width: 100%; height: 250px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; box-sizing: border-box; resize: none;}
+        textarea { width: 100%; height: 250px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; box-sizing: border-box; resize: none; outline: none; }
         .empty-state { text-align: center; padding: 40px 20px; color: var(--text-sub); font-size: 15px; }
 
-        /* 说明书样式 */
-        .manual-section { margin-bottom: 20px; }
-        .manual-section h3 { color: var(--primary); font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid #e1e1e1; padding-bottom: 5px; }
-        .manual-section ul { padding-left: 20px; margin: 0; color: var(--text-main); font-size: 14px; line-height: 1.6; }
-        .manual-section li { margin-bottom: 8px; }
-        .highlight { color: var(--danger); font-weight: bold; }
+        /* 说明书全新卡片样式 */
+        .manual-card {
+            background: #ffffff; border-radius: 14px; padding: 16px; margin-bottom: 14px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); border: 1px solid #edf2f7;
+        }
+        .manual-card h3 {
+            color: #1e293b; font-size: 16px; margin: 0 0 10px 0;
+            display: flex; align-items: center; gap: 8px;
+            padding-bottom: 8px; border-bottom: 1px dashed #e2e8f0;
+        }
+        .manual-card ul { padding-left: 18px; margin: 0; color: #475569; font-size: 14px; line-height: 1.65; }
+        .manual-card li { margin-bottom: 8px; }
+        .manual-card li:last-child { margin-bottom: 0; }
+        .highlight { color: var(--danger); font-weight: 700; background: #fff1f0; padding: 1px 6px; border-radius: 4px; }
+        .btn-manual-done {
+            background: linear-gradient(135deg, #0084ff 0%, #0062cc 100%);
+            color: white; border: none; width: 100%; padding: 14px;
+            border-radius: 14px; font-size: 16px; font-weight: 700;
+            box-shadow: 0 6px 16px rgba(0, 132, 255, 0.28); cursor: pointer;
+        }
+        .btn-manual-done:active { transform: scale(0.98); }
 
-        /* 新增/修改弹窗的美化样式 */
+        /* 新增/修改货品弹窗的高颜值样式 */
         .modern-modal-box {
             background: #ffffff;
-            padding: 24px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 400px;
+            padding: 22px 20px 20px 20px;
+            border-radius: 22px;
+            width: 100%;
+            max-width: 410px;
             box-sizing: border-box;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-shadow: 0 22px 48px rgba(15, 23, 42, 0.24), 0 0 0 1px rgba(255,255,255,0.6);
+            animation: scaleIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
         }
         @keyframes scaleIn {
-            from { transform: scale(0.95) translateY(10px); opacity: 0; }
+            from { transform: scale(0.92) translateY(14px); opacity: 0; }
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
         .modern-modal-header {
-            margin-top: 0;
-            margin-bottom: 20px;
+            margin: 0 0 16px 0;
             font-size: 18px;
-            color: var(--text-main);
+            font-weight: 700;
+            color: #0f172a;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #f0f0f0;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f5f9;
             padding-bottom: 12px;
+        }
+        .modal-title-left { display: flex; align-items: center; gap: 8px; }
+        .modal-icon-badge {
+            width: 32px; height: 32px; border-radius: 10px;
+            background: var(--primary-light); color: var(--primary);
+            display: inline-flex; align-items: center; justify-content: center; font-size: 16px;
+        }
+        .form-section-label {
+            font-size: 12px; font-weight: 700; color: #64748b;
+            margin-bottom: 8px; display: flex; align-items: center; gap: 5px;
         }
         .form-input {
             width: 100%;
             padding: 12px 14px;
-            margin-bottom: 14px;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
             font-size: 15px;
-            background-color: #f9fafb;
+            color: #1e293b;
+            background-color: #f8fafc;
             transition: all 0.2s ease;
             box-sizing: border-box;
             appearance: none;
@@ -185,53 +249,151 @@
             border-color: var(--primary);
             background-color: #ffffff;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.15);
+            box-shadow: 0 0 0 3.5px rgba(0, 132, 255, 0.14);
         }
         select.form-input {
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat;
-            background-position: right 14px top 50%;
-            background-size: 12px auto;
-            padding-right: 30px;
+            background-position: right 12px top 50%;
+            background-size: 11px auto;
+            padding-right: 28px;
         }
         .form-row {
             display: flex;
-            gap: 12px;
-            margin-bottom: 4px;
+            gap: 10px;
+            margin-bottom: 2px;
         }
         .form-row > * { flex: 1; }
         .modal-actions {
             display: flex;
             gap: 12px;
-            margin-top: 10px;
+            margin-top: 14px;
         }
         .btn-cancel {
             flex: 1;
-            background: #f3f4f6;
-            color: #4b5563;
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-cancel:active { background: #e5e7eb; }
-        .btn-submit {
-            flex: 2;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 600;
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 700;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(0, 132, 255, 0.3);
         }
-        .btn-submit:active { transform: translateY(2px); box-shadow: 0 2px 6px rgba(0, 132, 255, 0.3); }
+        .btn-cancel:active { background: #e2e8f0; transform: scale(0.97); }
+        .btn-submit {
+            flex: 1.8;
+            background: linear-gradient(135deg, #0084ff 0%, #0062cc 100%);
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 16px rgba(0, 132, 255, 0.32);
+        }
+        .btn-submit:active { transform: scale(0.97); box-shadow: 0 3px 8px rgba(0, 132, 255, 0.25); }
+
+        /* 网页刷新提示弹窗 & 通用确认/输入弹窗（高颜值醒目按钮） */
+        .dialog-box {
+            background: #ffffff;
+            padding: 26px 22px 22px 22px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 370px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 24px 50px rgba(15, 23, 42, 0.28);
+            animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .dialog-icon-wrap {
+            width: 64px; height: 64px; border-radius: 20px;
+            margin: 0 auto 14px auto;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px;
+        }
+        .dialog-icon-wrap.warn {
+            background: linear-gradient(135deg, #fff1f0 0%, #ffdfdc 100%);
+            color: #ff3b30;
+            box-shadow: 0 8px 18px rgba(255, 59, 48, 0.16);
+        }
+        .dialog-icon-wrap.info {
+            background: linear-gradient(135deg, #e5f2ff 0%, #cce5ff 100%);
+            color: #0084ff;
+            box-shadow: 0 8px 18px rgba(0, 132, 255, 0.16);
+        }
+        .dialog-title {
+            margin: 0 0 8px 0; font-size: 19px; font-weight: 800; color: #0f172a;
+        }
+        .dialog-desc {
+            margin: 0 0 20px 0; font-size: 14px; color: #475569; line-height: 1.6;
+        }
+        .dialog-count-badge {
+            display: inline-block; background: #fff1f0; color: #ff3b30;
+            font-weight: 800; font-size: 16px; padding: 2px 10px; border-radius: 8px;
+            border: 1px solid #ffa39e; margin: 0 3px;
+        }
+        .dialog-actions {
+            display: flex; gap: 12px; margin-top: 6px;
+        }
+        .btn-dialog-secondary {
+            flex: 1;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1.5px solid #cbd5e1;
+            padding: 14px 10px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-dialog-secondary:active { background: #e2e8f0; transform: scale(0.96); }
+        .btn-dialog-danger {
+            flex: 1.35;
+            background: linear-gradient(135deg, #ff4d4f 0%, #d9363e 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 12px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.35);
+            transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+        .btn-dialog-danger:active { transform: scale(0.96); box-shadow: 0 4px 10px rgba(255, 59, 48, 0.25); }
+        .btn-dialog-primary {
+            flex: 1.35;
+            background: linear-gradient(135deg, #0084ff 0%, #0062cc 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 12px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 132, 255, 0.32);
+            transition: 0.2s;
+        }
+        .btn-dialog-primary:active { transform: scale(0.96); }
+
+        /* 顶部轻提示 Toast */
+        .toast-notice {
+            position: fixed; top: 18px; left: 50%; transform: translateX(-50%) translateY(-20px);
+            background: rgba(15, 23, 42, 0.92); color: #ffffff;
+            padding: 11px 20px; border-radius: 30px; font-size: 14px; font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 3000;
+            opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;
+        }
+        .toast-notice.show {
+            opacity: 1; transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -303,60 +465,96 @@
 
     <button class="fab-add" id="fabAddBtn" onclick="openAddModal()">+</button>
 
+    <!-- 顶部轻提示 Toast -->
+    <div id="toastNotice" class="toast-notice"></div>
+
+    <!-- 1. 网页刷新/重开时：未清空购物车醒目提示弹窗 -->
+    <div class="modal-overlay" id="refreshCartModal">
+        <div class="dialog-box">
+            <div class="dialog-icon-wrap warn">🛒</div>
+            <h3 class="dialog-title">发现未清空的购物车</h3>
+            <p class="dialog-desc">
+                检测到上次还有 <span class="dialog-count-badge" id="refreshCartCount">0 项</span> 已选货品未清空。<br>
+                是否需要清空购物车重新开始？
+            </p>
+            <div class="dialog-actions">
+                <button class="btn-dialog-secondary" onclick="closeRefreshCartModal()">继续上次点货</button>
+                <button class="btn-dialog-danger" onclick="confirmRefreshClearCart()">🗑️ 清空购物车</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 通用高颜值确认/输入弹窗（用于清空、删除、改名等交互） -->
+    <div class="modal-overlay" id="customDialogModal">
+        <div class="dialog-box">
+            <div class="dialog-icon-wrap info" id="customDialogIcon">💡</div>
+            <h3 class="dialog-title" id="customDialogTitle">操作确认</h3>
+            <p class="dialog-desc" id="customDialogDesc"></p>
+            <input type="text" id="customDialogInput" class="form-input" style="display:none; margin-bottom:16px; text-align:center; font-weight:600;" />
+            <div class="dialog-actions">
+                <button class="btn-dialog-secondary" id="customDialogCancelBtn" onclick="handleCustomDialogCancel()">取消</button>
+                <button class="btn-dialog-primary" id="customDialogConfirmBtn" onclick="handleCustomDialogConfirm()">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 系统使用说明书弹窗 -->
     <div class="modal" id="manualModal">
         <div class="modal-header">
-            <h2 style="margin:0; font-size: 18px;">📖 系统使用说明书</h2>
+            <h2 class="modal-header-title"><span class="modal-icon-badge">📖</span> 系统使用说明书</h2>
             <button class="btn-close" onclick="closeManual()">×</button>
         </div>
-        <div class="modal-body" style="background: white;">
-            
-            <div class="manual-section">
+        <div class="modal-body">
+            <div class="manual-card">
                 <h3>🛠️ 1. 日常开货操作方法</h3>
                 <ul>
-                    <li><b>找货：</b>在顶部搜索框输入拼音或文字即可快速找货，搜索框右侧带有一键清空按钮；或者滑动导航栏点击类别跳转。可以使用右上角的排序按钮切换首字/尾字排序。</li>
-                    <li><b>点货：</b>找到所需货品，点击右侧的<b>“选择”</b>按钮，系统会自动填入默认数量。</li>
-                    <li><b>切换主/备供应商：</b>绑定了备选货源的货品，卡片下方会显示橙色<b>“⇄ 换:供应商”</b>按钮。点击即可临时切换供应商、对应货品名、默认数量及单位。</li>
+                    <li><b>找货：</b>顶部搜索框支持搜主名称、备选名称或供应商，右侧带一键清空按钮；也可滑动类目栏跳转，或点右上角切换首字/尾字排序。</li>
+                    <li><b>点货：</b>找到所需货品，点击右侧<b>“选择”</b>按钮，系统会自动填入默认数量。</li>
+                    <li><b>切换主/备供应商：</b>绑定了备选货源的货品，卡片下方会显示橙色<b>“⇄ 换:供应商”</b>按钮，点击即可原位切换供应商、专属名称及规格。</li>
                     <li><b>改量与清空：</b>点选后可直接修改数量；点击底部结算栏左侧的<b>“🗑️ 一键清空”</b>可清空所有已选货品并自动恢复为默认主供应商。</li>
-                    <li><b>分单与合并结算：</b>点击底部<b>“一键生成结算单”</b>后，既可以按每个供应商卡片点击<b>“单独复制”</b>逐个发微信，也可以点击底部<b>“合并复制全部”</b>一次性复制整单。</li>
+                    <li><b>分单与合并结算：</b>点击底部<b>“一键生成结算单”</b>后，既可按每个供应商卡片点击<b>“单独复制”</b>逐个发微信，也可点击底部<b>“合并复制全部”</b>一次性复制整单。</li>
                 </ul>
             </div>
 
-            <div class="manual-section">
+            <div class="manual-card">
                 <h3>⚠️ 2. 极其重要的注意事项</h3>
                 <ul>
-                    <li><span class="highlight">不准清理浏览器缓存！</span>本系统的数据完全保存在当前手机浏览器的本地缓存中。如果清理缓存或卸载重装浏览器，所有货品数据都会丢失！</li>
-                    <li><b>推荐运行环境：</b>强烈建议使用手机自带的默认浏览器。如果是通过微信打开，退出微信时可能会误清缓存。</li>
+                    <li><span class="highlight">请勿清理浏览器缓存！</span>本系统数据保存在当前手机浏览器的本地缓存中，清理缓存或卸载浏览器会导致私有修改丢失。</li>
+                    <li><b>推荐运行环境：</b>强烈建议使用手机自带的默认浏览器打开并添加书签。</li>
                     <li>如果某个货品不需要数量（如按条/块结账），在点货时把数量<b>删成空</b>即可，结算单上将只显示货品名称。</li>
                 </ul>
             </div>
 
-            <div class="manual-section">
+            <div class="manual-card">
                 <h3>⚙️ 3. 数据管理 (添加/修改货品)</h3>
                 <ul>
-                    <li>点击右上角<b>“⚙️ 管理模式”</b>进入后台。</li>
-                    <li><b>类目排序：</b>在基础库中，按住类目前面的 `☰` 图标即可拖动。目标位置会被自动挤开，松手即可完成排序。</li>
-                    <li><b>新增货品：</b>点击右下角蓝色的 <b>“+”</b> 号即可添加新货品。</li>
-                    <li><b>修改货品：</b>在货品列表右侧点击 <b>“改”</b> 或 <b>“删”</b>。</li>
+                    <li>点击右上角<b>“⚙️ 管理模式”</b>进入后台，点击供应商或类目名称（带 ✏️）可直接改名并自动同步关联货品。</li>
+                    <li><b>类目排序：</b>在基础库中，手指按住类目前面的 <b>☰</b> 图标即可拖动调整先后顺序。</li>
+                    <li><b>新增与修改：</b>点击右下角蓝色的 <b>“+”</b> 号可添加新货品；在货品列表右侧点击 <b>“改”</b> 或 <b>“删”</b> 可编辑或删除。</li>
                 </ul>
             </div>
 
-            <div class="manual-section">
+            <div class="manual-card">
                 <h3>💾 4. 备份与多手机同步</h3>
                 <ul>
-                    <li>在管理模式下，找到<b>“数据导入与导出”</b>区域。</li>
-                    <li><b>导出防丢失：</b>定期点击<b>“导出备份”</b>，将生成的代码发到微信“文件传输助手”里当做备份。</li>
-                    <li><b>多手机同步：</b>把导出的代码发给其他同事，让他复制并粘贴到他的“数据导入区”，点击<b>“覆盖导入”</b>即可瞬间同步数据。</li>
+                    <li>在管理模式下找到<b>“数据导入与导出”</b>区域，定期点击<b>“导出备份”</b>发到微信保存。</li>
+                    <li><b>多手机同步：</b>把导出的 JSON 代码发给同事，粘贴到“数据导入区”点击<b>“覆盖导入”</b>即可同步。</li>
                 </ul>
             </div>
 
-            <button style="background:var(--primary); color:white; border:none; width:100%; padding:12px; border-radius:8px; font-size:16px; margin-top:20px; font-weight: bold;" onclick="closeManual()">我已了解，开始使用</button>
+            <button class="btn-manual-done" onclick="closeManual()">✓ 我已了解，开始点货</button>
         </div>
     </div>
 
+    <!-- 4. 新增货品弹窗 -->
     <div class="modal-overlay" id="addModal">
         <div class="modern-modal-box">
-            <h3 class="modern-modal-header">✨ 新增货品</h3>
-            <input type="text" id="pName" class="form-input" placeholder="输入货品名称 (如: 羊肩肉)">
+            <div class="modern-modal-header">
+                <div class="modal-title-left"><span class="modal-icon-badge">✨</span> 新增货品</div>
+                <button class="btn-close" onclick="closeAddModal()">×</button>
+            </div>
+            <span class="form-section-label">📦 主货源信息（必填）</span>
+            <input type="text" id="pName" class="form-input" placeholder="输入主货品名称 (如: 羊肩肉)">
             <div class="form-row">
                 <select id="pSupplier" class="form-input"></select>
                 <select id="pCategory" class="form-input"></select>
@@ -389,15 +587,20 @@
             </div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeAddModal()">取消</button>
-                <button class="btn-submit" onclick="addProduct()">保存入库</button>
+                <button class="btn-submit" onclick="addProduct()">✓ 保存入库</button>
             </div>
         </div>
     </div>
 
+    <!-- 5. 修改货品弹窗 -->
     <div class="modal-overlay" id="editModal">
         <div class="modern-modal-box">
-            <h3 class="modern-modal-header">✏️ 修改货品</h3>
-            <input type="text" id="eName" class="form-input" placeholder="输入货品名称">
+            <div class="modern-modal-header">
+                <div class="modal-title-left"><span class="modal-icon-badge">✏️</span> 修改货品资料</div>
+                <button class="btn-close" onclick="closeEditModal()">×</button>
+            </div>
+            <span class="form-section-label">📦 主货源信息（必填）</span>
+            <input type="text" id="eName" class="form-input" placeholder="输入主货品名称">
             <div class="form-row">
                 <select id="eSupplier" class="form-input"></select>
                 <select id="eCategory" class="form-input"></select>
@@ -430,25 +633,26 @@
             </div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeEditModal()">取消</button>
-                <button class="btn-submit" onclick="saveProductEdit()">保存修改</button>
+                <button class="btn-submit" onclick="saveProductEdit()">✓ 保存修改</button>
             </div>
         </div>
     </div>
 
+    <!-- 6. 每日开货结算单弹窗 -->
     <div class="modal" id="resultModal">
         <div class="modal-header">
-            <h2 style="margin:0; font-size: 18px;">🧾 每日开货结算单</h2>
+            <h2 class="modal-header-title"><span class="modal-icon-badge">🧾</span> 每日开货结算单</h2>
             <button class="btn-close" onclick="closeResultModal()">×</button>
         </div>
         <div class="modal-body">
-            <div class="report-tip">💡 可点击各供应商卡片右上角<b>“单独复制”</b>逐一发微信，也可点击底部<b>“合并复制全部”</b>汇总发送。</div>
+            <div class="report-tip">💡 点击各供应商卡片右上角<b>“单独复制”</b>可逐家发微信（自动隐去供应商前缀）；点击底部<b>“合并复制全部”</b>可汇总整单。</div>
             <div id="supplierCardsContainer"></div>
             <div class="summary-block">
                 <div class="summary-block-title">
                     <span>📄 全部供应商汇总预览</span>
-                    <span id="totalSummaryCount" style="font-size:12px; color:var(--primary);"></span>
+                    <span id="totalSummaryCount" style="font-size:12px; color:var(--primary); font-weight:700;"></span>
                 </div>
-                <textarea id="outputText" style="height:120px; background:#f9fafb; font-size:13px; color:#555;" readonly></textarea>
+                <textarea id="outputText" style="height:120px; background:#f8fafc; font-size:13px; color:#475569;" readonly></textarea>
             </div>
         </div>
         <div class="result-footer">
@@ -574,7 +778,7 @@
         };
 
         // ⬇️ === 双轨制智能升级系统 === ⬇️
-        const CODE_VERSION = 3.2; // 💡 以后你想加新菜，就修改这个数字（变成 3.3, 3.4...）
+        const CODE_VERSION = 3.3; // 💡 以后你想加新菜，就修改这个数字（变成 3.4, 3.5...）
         const FORCE_RESET_VERSION = 3.1; // 🚨 强制重置水位线（保持 3.1 基线）
 
         let data;
@@ -682,35 +886,143 @@
             updateStatusUI();
             initScrollSpy();
 
-            // 刷新或重新打开网页时，如果购物车中有未清空的已选货品，弹窗询问是否需要清空购物车
+            // 刷新或重新打开网页时，如果购物车中有未清空的已选货品，弹出高颜值确认弹窗（按钮显示为“清空购物车”）
             if (!hasCheckedRefreshCart) {
                 hasCheckedRefreshCart = true;
                 const savedCount = Object.keys(selectedList).length;
                 if (savedCount > 0) {
-                    setTimeout(() => {
-                        if (confirm(`检测到上次还有 ${savedCount} 项已选货品未清空，是否需要清空购物车？\n（点“确定”清空并恢复默认供应商，点“取消”继续上次点货）`)) {
-                            selectedList = {};
-                            if (data && Array.isArray(data.products)) {
-                                data.products.forEach(p => { p.useAlt = false; });
-                            }
-                            save();
-                            saveCart();
-                            handleSearch();
-                            updateStatusUI();
-                        }
-                    }, 150);
+                    document.getElementById('refreshCartCount').innerText = `${savedCount} 项`;
+                    document.getElementById('refreshCartModal').style.display = 'flex';
+                    syncBodyScrollLock();
                 }
             }
         }
 
-        function openManual() { document.getElementById('manualModal').style.display = 'flex'; }
-        function closeManual() { document.getElementById('manualModal').style.display = 'none'; }
+        let toastTimer = null;
+        function showToast(msg) {
+            const el = document.getElementById('toastNotice');
+            if (!el) return;
+            el.innerText = msg;
+            el.classList.add('show');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                el.classList.remove('show');
+            }, 2200);
+        }
+
+        // 弹窗背景滚动锁定系统（彻底解决手机 iOS / 安卓打开弹窗后底层货品列表仍可滑动穿透的问题）
+        let isBodyScrollLocked = false;
+        let savedScrollY = 0;
+        const ALL_MODAL_IDS = ['refreshCartModal', 'customDialogModal', 'manualModal', 'addModal', 'editModal', 'resultModal'];
+
+        function syncBodyScrollLock() {
+            const anyOpen = ALL_MODAL_IDS.some(id => {
+                const el = document.getElementById(id);
+                return el && el.style.display === 'flex';
+            });
+
+            if (anyOpen && !isBodyScrollLocked) {
+                savedScrollY = window.scrollY || window.pageYOffset || 0;
+                isBodyScrollLocked = true;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${savedScrollY}px`;
+                document.body.style.left = '0';
+                document.body.style.right = '0';
+                document.body.style.width = '100%';
+                document.body.style.overflow = 'hidden';
+            } else if (!anyOpen && isBodyScrollLocked) {
+                isBodyScrollLocked = false;
+                document.body.style.scrollBehavior = 'auto';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
+                window.scrollTo(0, savedScrollY);
+                setTimeout(() => { document.body.style.scrollBehavior = ''; }, 50);
+            }
+        }
+
+        // 拦截半透明遮罩层上的手指滑动事件，防止在弹窗外滑动时触发浏览器橡皮筋穿透
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('touchmove', function(e) {
+                if (e.cancelable) e.preventDefault();
+            }, { passive: false });
+        });
+
+        function closeRefreshCartModal() {
+            document.getElementById('refreshCartModal').style.display = 'none';
+            syncBodyScrollLock();
+        }
+
+        function confirmRefreshClearCart() {
+            selectedList = {};
+            if (data && Array.isArray(data.products)) {
+                data.products.forEach(p => { p.useAlt = false; });
+            }
+            save();
+            saveCart();
+            handleSearch();
+            updateStatusUI();
+            closeRefreshCartModal();
+            showToast('🗑️ 购物车已清空，已恢复默认主供应商');
+        }
+
+        let customDialogCallbacks = { onConfirm: null, isPrompt: false };
+        function openCustomDialog({ icon = '💡', iconType = 'info', title = '操作确认', desc = '', confirmText = '确定', cancelText = '取消', isDanger = false, showCancel = true, isPrompt = false, defaultValue = '', onConfirm = null }) {
+            const iconEl = document.getElementById('customDialogIcon');
+            iconEl.innerText = icon;
+            iconEl.className = `dialog-icon-wrap ${iconType}`;
+            document.getElementById('customDialogTitle').innerText = title;
+            document.getElementById('customDialogDesc').innerHTML = desc;
+
+            const inputEl = document.getElementById('customDialogInput');
+            if (isPrompt) {
+                inputEl.style.display = 'block';
+                inputEl.value = defaultValue || '';
+                setTimeout(() => inputEl.focus(), 80);
+            } else {
+                inputEl.style.display = 'none';
+            }
+
+            const cancelBtn = document.getElementById('customDialogCancelBtn');
+            cancelBtn.style.display = showCancel ? 'block' : 'none';
+            cancelBtn.innerText = cancelText;
+
+            const confirmBtn = document.getElementById('customDialogConfirmBtn');
+            confirmBtn.innerText = confirmText;
+            confirmBtn.className = isDanger ? 'btn-dialog-danger' : 'btn-dialog-primary';
+
+            customDialogCallbacks = { onConfirm, isPrompt };
+            document.getElementById('customDialogModal').style.display = 'flex';
+            syncBodyScrollLock();
+        }
+
+        function handleCustomDialogCancel() {
+            document.getElementById('customDialogModal').style.display = 'none';
+            customDialogCallbacks = { onConfirm: null, isPrompt: false };
+            syncBodyScrollLock();
+        }
+
+        function handleCustomDialogConfirm() {
+            const val = document.getElementById('customDialogInput').value;
+            const cb = customDialogCallbacks.onConfirm;
+            const isPrompt = customDialogCallbacks.isPrompt;
+            document.getElementById('customDialogModal').style.display = 'none';
+            customDialogCallbacks = { onConfirm: null, isPrompt: false };
+            syncBodyScrollLock();
+            if (cb) cb(isPrompt ? val : true);
+        }
+
+        function openManual() { document.getElementById('manualModal').style.display = 'flex'; syncBodyScrollLock(); }
+        function closeManual() { document.getElementById('manualModal').style.display = 'none'; syncBodyScrollLock(); }
 
         function saveShopName() {
             const inputVal = document.getElementById('shopNameInput').value.trim();
             data.shopName = inputVal;
             save();
-            alert('店铺信息已保存！结算时将自动添加前缀。');
+            showToast('🏪 店铺名称已保存！');
         }
 
         function exportData() {
@@ -719,11 +1031,9 @@
             cleanCopy.products.forEach(p => { p.useAlt = false; });
             const ta = document.getElementById('ioTextarea');
             ta.value = JSON.stringify(cleanCopy, null, 2);
-            ta.focus();
-            ta.select();
-            ta.setSelectionRange(0, 999999);
-            try { document.execCommand('copy'); } catch (e) {}
-            alert("数据已生成并尝试复制！");
+            copyTextSafe(ta.value, () => {
+                showToast('💾 备份数据已生成并复制到剪贴板！');
+            });
         }
 
         function importData() {
@@ -731,31 +1041,44 @@
             try {
                 const parsed = JSON.parse(ta.value.trim());
                 if (Array.isArray(parsed.suppliers) && Array.isArray(parsed.categories) && Array.isArray(parsed.products)) {
-                    if(confirm("确定覆盖当前所有货品库吗？此操作不可逆！")) {
-                        // 兼容旧版备份与新增的备选货源字段，防止缺少字段或版本号过低导致下次刷新被重置
-                        parsed.shopName = parsed.shopName || "";
-                        parsed.version = CODE_VERSION;
-                        parsed.products.forEach(p => {
-                            p.altSupplier = p.altSupplier || "";
-                            p.altName = p.altName || "";
-                            p.altDefaultQty = p.altDefaultQty || "";
-                            p.altUnit = p.altUnit !== undefined ? p.altUnit : "__SAME__";
-                            p.useAlt = false;
-                            if (p.supplier && !parsed.suppliers.includes(p.supplier)) {
-                                parsed.suppliers.push(p.supplier);
-                            }
-                            if (p.altSupplier && !parsed.suppliers.includes(p.altSupplier)) {
-                                parsed.suppliers.push(p.altSupplier);
-                            }
-                            if (p.category && !parsed.categories.includes(p.category)) {
-                                parsed.categories.push(p.category);
-                            }
-                        });
-                        data = parsed; selectedList = {}; save(); saveCart(); init();
-                        ta.value = ""; alert("导入成功！");
-                    }
-                } else alert("数据格式缺少必要字段。");
-            } catch(e) { alert("解析失败，请检查格式！"); }
+                    openCustomDialog({
+                        icon: '⚠️',
+                        iconType: 'warn',
+                        title: '覆盖导入确认',
+                        desc: '确定要用粘贴的数据覆盖当前所有货品库吗？此操作不可逆！',
+                        confirmText: '确认覆盖导入',
+                        cancelText: '取消',
+                        isDanger: true,
+                        onConfirm: () => {
+                            parsed.shopName = parsed.shopName || "";
+                            parsed.version = CODE_VERSION;
+                            parsed.products.forEach(p => {
+                                p.altSupplier = p.altSupplier || "";
+                                p.altName = p.altName || "";
+                                p.altDefaultQty = p.altDefaultQty || "";
+                                p.altUnit = p.altUnit !== undefined ? p.altUnit : "__SAME__";
+                                p.useAlt = false;
+                                if (p.supplier && !parsed.suppliers.includes(p.supplier)) {
+                                    parsed.suppliers.push(p.supplier);
+                                }
+                                if (p.altSupplier && !parsed.suppliers.includes(p.altSupplier)) {
+                                    parsed.suppliers.push(p.altSupplier);
+                                }
+                                if (p.category && !parsed.categories.includes(p.category)) {
+                                    parsed.categories.push(p.category);
+                                }
+                            });
+                            data = parsed; selectedList = {}; save(); saveCart(); init();
+                            ta.value = "";
+                            showToast('✨ 数据覆盖导入成功！');
+                        }
+                    });
+                } else {
+                    openCustomDialog({ icon: '❌', iconType: 'warn', title: '格式不完整', desc: '导入的数据缺少 suppliers / categories / products 必要字段。', showCancel: false });
+                }
+            } catch(e) {
+                openCustomDialog({ icon: '❌', iconType: 'warn', title: 'JSON 解析失败', desc: '请检查粘贴的备份文本是否完整、格式是否正确！', showCancel: false });
+            }
         }
 
         function toggleMode() {
@@ -787,80 +1110,125 @@
             if (type === 'categories') {
                 const usedCount = data.products.filter(p => p.category === targetName).length;
                 if (usedCount > 0) {
-                    return alert(`无法直接删除：类目“${targetName}”下还有 ${usedCount} 个货品！\n请先点击该类目改名合并，或将其下的货品移至其他类目后再删除。`);
+                    return openCustomDialog({
+                        icon: '🚫', iconType: 'warn', title: '无法直接删除类目',
+                        desc: `类目 <b>“${targetName}”</b> 下还有 <span class="dialog-count-badge">${usedCount} 个</span> 货品！<br>请先点击该类目改名合并，或将其下的货品移至其他类目后再删除。`,
+                        showCancel: false
+                    });
                 }
             } else if (type === 'suppliers') {
                 const usedMainCount = data.products.filter(p => p.supplier === targetName).length;
                 if (usedMainCount > 0) {
-                    return alert(`无法直接删除：还有 ${usedMainCount} 个货品以“${targetName}”为主供应商！\n请先点击该供应商改名合并，或修改对应货品后再删除。`);
-                }
-            }
-            if (confirm(`确定删除“${targetName}”吗？`)) {
-                data[type].splice(index, 1);
-                if (type === 'suppliers') {
-                    // 若有货品将其作为备选供应商，自动清理备选绑定
-                    data.products.forEach(p => {
-                        if (p.altSupplier === targetName) {
-                            p.altSupplier = '';
-                            p.altName = '';
-                            p.altDefaultQty = '';
-                            p.altUnit = '__SAME__';
-                            p.useAlt = false;
-                        }
+                    return openCustomDialog({
+                        icon: '🚫', iconType: 'warn', title: '无法直接删除供应商',
+                        desc: `还有 <span class="dialog-count-badge">${usedMainCount} 个</span> 货品以 <b>“${targetName}”</b> 为主供应商！<br>请先点击该供应商改名合并，或修改对应货品后再删除。`,
+                        showCancel: false
                     });
                 }
-                save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
             }
+            openCustomDialog({
+                icon: '🗑️', iconType: 'warn', title: '确认删除',
+                desc: `确定要删除 <b>“${targetName}”</b> 吗？`,
+                confirmText: '确认删除', cancelText: '取消', isDanger: true,
+                onConfirm: () => {
+                    data[type].splice(index, 1);
+                    if (type === 'suppliers') {
+                        data.products.forEach(p => {
+                            if (p.altSupplier === targetName) {
+                                p.altSupplier = '';
+                                p.altName = '';
+                                p.altDefaultQty = '';
+                                p.altUnit = '__SAME__';
+                                p.useAlt = false;
+                            }
+                        });
+                    }
+                    save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
+                    showToast(`已删除“${targetName}”`);
+                }
+            });
         }
 
         function renameSupplier(index) {
             const oldName = data.suppliers[index];
-            const newName = prompt("修改供应商名称 (关联货品的主/备供应商会自动同步)：", oldName);
-            if (newName && newName.trim() !== "" && newName.trim() !== oldName) {
-                const finalName = newName.trim();
-                const existIdx = data.suppliers.indexOf(finalName);
-                if (existIdx !== -1 && existIdx !== index) {
-                    if (!confirm(`供应商“${finalName}”已存在，是否将“${oldName}”下的所有货品直接合并到“${finalName}”？`)) {
-                        return;
+            openCustomDialog({
+                icon: '✏️', iconType: 'info', title: '修改供应商名称',
+                desc: `将 <b>“${oldName}”</b> 修改为（关联货品的主/备供应商会自动同步）：`,
+                isPrompt: true, defaultValue: oldName, confirmText: '保存修改',
+                onConfirm: (newName) => {
+                    if (!newName || newName.trim() === '' || newName.trim() === oldName) return;
+                    const finalName = newName.trim();
+                    const existIdx = data.suppliers.indexOf(finalName);
+                    const applyRename = (isMerge) => {
+                        if (isMerge) {
+                            data.suppliers.splice(index, 1);
+                        } else {
+                            data.suppliers[index] = finalName;
+                        }
+                        data.products.forEach(p => {
+                            if (p.supplier === oldName) p.supplier = finalName;
+                            if (p.altSupplier === oldName) p.altSupplier = finalName;
+                            if (p.altSupplier && p.altSupplier === p.supplier) {
+                                p.altSupplier = '';
+                                p.altName = '';
+                                p.altDefaultQty = '';
+                                p.altUnit = '__SAME__';
+                                p.useAlt = false;
+                            }
+                        });
+                        save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
+                        showToast(`✓ 供应商已更新为“${finalName}”`);
+                    };
+                    if (existIdx !== -1 && existIdx !== index) {
+                        setTimeout(() => {
+                            openCustomDialog({
+                                icon: '🔄', iconType: 'info', title: '合并同名供应商',
+                                desc: `供应商 <b>“${finalName}”</b> 已存在，是否将 <b>“${oldName}”</b> 下的所有货品直接合并到 <b>“${finalName}”</b>？`,
+                                confirmText: '确认合并', cancelText: '取消',
+                                onConfirm: () => applyRename(true)
+                            });
+                        }, 100);
+                    } else {
+                        applyRename(false);
                     }
-                    data.suppliers.splice(index, 1);
-                } else {
-                    data.suppliers[index] = finalName;
                 }
-                // 同时同步所有货品的主供应商与备选供应商
-                data.products.forEach(p => {
-                    if (p.supplier === oldName) p.supplier = finalName;
-                    if (p.altSupplier === oldName) p.altSupplier = finalName;
-                    // 防呆：如果合并后主供应商与备选供应商变成同一家，自动清理备选状态
-                    if (p.altSupplier && p.altSupplier === p.supplier) {
-                        p.altSupplier = '';
-                        p.altName = '';
-                        p.altDefaultQty = '';
-                        p.altUnit = '__SAME__';
-                        p.useAlt = false;
-                    }
-                });
-                save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
-            }
+            });
         }
 
         function renameCategory(index) {
             const oldName = data.categories[index];
-            const newName = prompt("修改类目名称 (货品会自动转移)：", oldName);
-            if (newName && newName.trim() !== "" && newName.trim() !== oldName) {
-                const finalName = newName.trim();
-                const existIdx = data.categories.indexOf(finalName);
-                if (existIdx !== -1 && existIdx !== index) {
-                    if (!confirm(`类目“${finalName}”已存在，是否将“${oldName}”下的所有货品合并到“${finalName}”？`)) {
-                        return;
+            openCustomDialog({
+                icon: '✏️', iconType: 'info', title: '修改类目名称',
+                desc: `将类目 <b>“${oldName}”</b> 修改为（关联货品会自动转移）：`,
+                isPrompt: true, defaultValue: oldName, confirmText: '保存修改',
+                onConfirm: (newName) => {
+                    if (!newName || newName.trim() === '' || newName.trim() === oldName) return;
+                    const finalName = newName.trim();
+                    const existIdx = data.categories.indexOf(finalName);
+                    const applyCatRename = (isMerge) => {
+                        if (isMerge) {
+                            data.categories.splice(index, 1);
+                        } else {
+                            data.categories[index] = finalName;
+                        }
+                        data.products.forEach(p => { if (p.category === oldName) p.category = finalName; });
+                        save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
+                        showToast(`✓ 类目已更新为“${finalName}”`);
+                    };
+                    if (existIdx !== -1 && existIdx !== index) {
+                        setTimeout(() => {
+                            openCustomDialog({
+                                icon: '🔄', iconType: 'info', title: '合并同名类目',
+                                desc: `类目 <b>“${finalName}”</b> 已存在，是否将 <b>“${oldName}”</b> 下的所有货品合并到 <b>“${finalName}”</b>？`,
+                                confirmText: '确认合并', cancelText: '取消',
+                                onConfirm: () => applyCatRename(true)
+                            });
+                        }, 100);
+                    } else {
+                        applyCatRename(false);
                     }
-                    data.categories.splice(index, 1);
-                } else {
-                    data.categories[index] = finalName;
                 }
-                data.products.forEach(p => { if (p.category === oldName) p.category = finalName; });
-                save(); updateDropdowns(); renderSuppliersCategories(); handleSearch();
-            }
+            });
         }
 
         // 拖拽逻辑变量
@@ -1031,8 +1399,8 @@
             document.getElementById('eCategory').innerHTML = opts(data.categories, '选择类目');
         }
 
-        function openAddModal() { document.getElementById('addModal').style.display = 'flex'; }
-        function closeAddModal() { document.getElementById('addModal').style.display = 'none'; }
+        function openAddModal() { document.getElementById('addModal').style.display = 'flex'; syncBodyScrollLock(); }
+        function closeAddModal() { document.getElementById('addModal').style.display = 'none'; syncBodyScrollLock(); }
         
         function addProduct() {
             const name = document.getElementById('pName').value.trim();
@@ -1045,7 +1413,7 @@
             const unit = document.getElementById('pUnit').value;
             const defaultQty = document.getElementById('pDefaultQty').value.trim();
 
-            if (!name || !supplier || !category) return alert('信息填写不完整');
+            if (!name || !supplier || !category) return showToast('⚠️ 请填写完整的主货品名称、主供应商和类目');
             if (altSupplier === supplier) { altSupplier = ''; altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; }
             if (!altSupplier) { altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; }
 
@@ -1194,7 +1562,7 @@
 
         function initScrollSpy() {
             window.addEventListener('scroll', () => {
-                if(isScrollingFromNav) return;
+                if(isScrollingFromNav || isBodyScrollLocked) return;
                 let currentCat = '';
                 const sections = document.querySelectorAll('.cat-section');
                 sections.forEach(sec => {
@@ -1230,9 +1598,10 @@
             document.getElementById('eUnit').value = product.unit || '';
             document.getElementById('eDefaultQty').value = product.defaultQty || '';
             document.getElementById('editModal').style.display = 'flex';
+            syncBodyScrollLock();
         }
 
-        function closeEditModal() { document.getElementById('editModal').style.display = 'none'; currentEditId = null; }
+        function closeEditModal() { document.getElementById('editModal').style.display = 'none'; currentEditId = null; syncBodyScrollLock(); }
 
         function saveProductEdit() {
             const product = data.products.find(p => p.id === currentEditId);
@@ -1244,7 +1613,7 @@
                 let altDefaultQty = document.getElementById('eAltDefaultQty').value.trim();
                 let altUnit = document.getElementById('eAltUnit').value;
                 const category = document.getElementById('eCategory').value;
-                if (!name || !supplier || !category) return alert('主货品名称、主供应商和类目不能为空');
+                if (!name || !supplier || !category) return showToast('⚠️ 主货品名称、主供应商和类目不能为空');
                 if (altSupplier === supplier) { altSupplier = ''; altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; }
                 if (!altSupplier) { altName = ''; altDefaultQty = ''; altUnit = '__SAME__'; product.useAlt = false; }
 
@@ -1262,9 +1631,22 @@
         }
         
         function deleteProduct(id) {
-            if (!confirm('确定删除该货品？')) return;
-            data.products = data.products.filter(p => p.id !== id);
-            delete selectedList[id]; save(); saveCart(); handleSearch(); updateStatusUI();
+            const p = data.products.find(item => item.id === id);
+            if (!p) return;
+            openCustomDialog({
+                icon: '⚠️',
+                iconType: 'warn',
+                title: '删除货品确认',
+                desc: `确定要从货品库中永久删除 <b>“${p.name}”</b> 吗？`,
+                confirmText: '确认删除',
+                cancelText: '取消',
+                isDanger: true,
+                onConfirm: () => {
+                    data.products = data.products.filter(item => item.id !== id);
+                    delete selectedList[id]; save(); saveCart(); handleSearch(); updateStatusUI();
+                    showToast(`已删除“${p.name}”`);
+                }
+            });
         }
 
         function toggleSelect(id) {
@@ -1292,13 +1674,24 @@
         function clearAllSelections() {
             const count = Object.keys(selectedList).length;
             if (count === 0) return;
-            if (!confirm(`确定要清空当前已选的 ${count} 项货品，并恢复默认主供应商吗？`)) return;
-            selectedList = {};
-            data.products.forEach(p => { p.useAlt = false; });
-            save();
-            saveCart();
-            handleSearch();
-            updateStatusUI();
+            openCustomDialog({
+                icon: '🗑️',
+                iconType: 'warn',
+                title: '清空当前购物车',
+                desc: `确定要清空当前已选的 <span class="dialog-count-badge">${count} 项</span> 货品，并恢复默认主供应商吗？`,
+                confirmText: '🗑️ 清空购物车',
+                cancelText: '再看看',
+                isDanger: true,
+                onConfirm: () => {
+                    selectedList = {};
+                    data.products.forEach(p => { p.useAlt = false; });
+                    save();
+                    saveCart();
+                    handleSearch();
+                    updateStatusUI();
+                    showToast('🗑️ 已清空购物车并恢复默认供应商');
+                }
+            });
         }
 
         let currentSupplierLines = [];
@@ -1366,9 +1759,10 @@
             }
 
             document.getElementById('resultModal').style.display = 'flex';
+            syncBodyScrollLock();
         }
         
-        function closeResultModal() { document.getElementById('resultModal').style.display = 'none'; }
+        function closeResultModal() { document.getElementById('resultModal').style.display = 'none'; syncBodyScrollLock(); }
 
         // 兼容苹果 iOS / 安卓各浏览器的稳健复制函数（支持传入任意文本复制）
         function copyTextSafe(text, onSuccess) {
@@ -1420,6 +1814,7 @@
                     btn.classList.add('copied');
                     btn.innerText = '✓ 已复制';
                 }
+                showToast(`✓ 已复制【${item.supplier}】开货单`);
             });
         }
 
@@ -1437,7 +1832,7 @@
                     btn.classList.add('copied');
                     btn.innerText = '✓ 全部已复制';
                 }
-                alert('全部供应商结算单已合并复制！快去微信粘贴发送吧。');
+                showToast('📋 全部供应商结算单已合并复制！');
             });
         }
 
